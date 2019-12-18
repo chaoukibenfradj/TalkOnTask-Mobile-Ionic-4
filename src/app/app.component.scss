@@ -1,0 +1,41 @@
+@import "./../theme/variables.scss";
+.round {
+    border-radius: 50%;
+}
+
+#menu-material {
+    .menu-header {
+        padding: 5px 15px;
+        background-color: var(--ion-color-primary);
+        // background-image: url('./../assets/imgs/material-design-background.jpg');
+        background-size: cover;
+        color: white;
+
+        .name {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        .e-mail {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+    }
+
+    .user-avatar {
+        max-width: 125px;
+        height: 125px;
+        padding: .5em;
+        height: 12vh;
+    }
+
+    h3,
+    .label {
+        color: #999;
+        font-weight: 400;
+    }
+
+    ion-icon {
+        color: #777;
+    }
+}
