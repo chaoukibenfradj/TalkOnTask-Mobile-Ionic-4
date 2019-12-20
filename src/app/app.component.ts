@@ -18,11 +18,6 @@ export class AppComponent {
       url: '/home',
       icon: 'home'
     },
-    {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    },
   ];
   currentUser: User;
   constructor(
@@ -47,7 +42,7 @@ export class AppComponent {
   getUserType(userType): string {
     switch (userType) {
       case 'pm':
-        return 'Project Manager'
+        return 'Project Manager';
         break;
       case 'dev':
         return 'Developper';

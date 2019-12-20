@@ -1,6 +1,6 @@
 export interface Response {
-    status?: string,
-    error?: string,
-    data?: any,
-    message?: string
+    status?: string;
+    error?: string;
+    data?: any;
+    message?: string;
 }

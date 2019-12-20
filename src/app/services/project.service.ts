@@ -1,7 +1,8 @@
+
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { GET_MANAGER_PROJECTS, ADD_PROJECT } from '../utils/API_URLS';
+import { GET_MANAGER_PROJECTS, ADD_PROJECT, GET_ALL_PROJECTS } from '../utils/API_URLS';
 import { Response } from '../models/response.model';
 
 @Injectable({
@@ -21,6 +22,11 @@ export class ProjectService {
     addProject(project): Observable<Response> {
         const URL = ADD_PROJECT;
         return this.http.post(URL, project);
+    }
+
+    getAllProjects(): Observable<Response> {
+        const URL = GET_ALL_PROJECTS;
+        return this.http.get(URL);
     }
 
 }

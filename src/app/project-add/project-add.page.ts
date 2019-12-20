@@ -52,7 +52,7 @@ export class ProjectAddPage implements OnInit {
   }
 
   removeItemFromDevList(item) {
-    this.listDevTeam.splice(this.listDevTeam.findIndex((element) => { return element._id == item._id }), 1);
+    this.listDevTeam.splice(this.listDevTeam.findIndex((element) => { return element._id === item._id }), 1);
   }
 
   saveProject() {
@@ -61,19 +61,19 @@ export class ProjectAddPage implements OnInit {
     project.description = this.addForm.get('description').value;
     project.estimated_start_date = this.addForm.get('estimated_start_date').value;
     project.estimated_end_date = this.addForm.get('estimated_end_date').value;
-    let listDevAsString = "";
+    let listDevAsString = '';
     this.listDevTeam.forEach((element, index) => {
-      listDevAsString += element._id + ":"; 
+      listDevAsString += element._id + ':';
     });
-    listDevAsString = listDevAsString.substring(1, listDevAsString.length-1) ;
-    project.devTeamId = listDevAsString ;
-      this.projectService.addProject(project)
-        .subscribe(data => {
-          console.log(data);
-        }, err => {
-          console.log(err);
-        })
-    }
+    listDevAsString = listDevAsString.substring(1, listDevAsString.length - 1);
+    project.devTeamId = listDevAsString;
+    this.projectService.addProject(project)
+      .subscribe(data => {
+        console.log(data);
+      }, err => {
+        console.log(err);
+      });
   }
+}
 
 

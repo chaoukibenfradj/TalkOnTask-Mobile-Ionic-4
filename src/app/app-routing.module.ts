@@ -13,12 +13,12 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
-    path: 'list',
-    loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
-  },
-  {
     path: 'project-add',
     loadChildren: './project-add/project-add.module#ProjectAddPageModule'
+  },
+  {
+    path: 'task-add',
+    loadChildren: './task-add/task-add.module#TaskAddPageModule'
   },
   {
     path: '**',
@@ -29,7 +29,9 @@ const routes: Routes = [
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
-  }
+  },
+  { path: 'task-add', loadChildren: './task-add/task-add.module#TaskAddPageModule' }
+
 ];
 
 

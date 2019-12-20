@@ -5,14 +5,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ProjectAddPage } from './project-add.page';
+import { TaskAddPage } from './task-add.page';
 import { SharedModule } from '../shared/shared.module';
 import { AddDevModalComponent } from '../shared/add-dev-modal/add-dev-modal.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProjectAddPage
+    component: TaskAddPage
   }
 ];
 
@@ -20,14 +20,14 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
   ],
   entryComponents : [
     AddDevModalComponent
   ],
-  declarations: [ProjectAddPage]
+  declarations: [TaskAddPage]
 })
-export class ProjectAddPageModule {}
+export class TaskAddPageModule {}
