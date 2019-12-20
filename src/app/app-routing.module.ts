@@ -17,6 +17,10 @@ const routes: Routes = [
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
   },
   {
+    path: 'project-add',
+    loadChildren: './project-add/project-add.module#ProjectAddPageModule'
+  },
+  {
     path: '**',
     redirectTo: 'login',
     pathMatch: 'full'
@@ -26,9 +30,8 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   }
-
-
 ];
+
 
 @NgModule({
   imports: [
