@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Add Project</ion-title>
+    <ion-title>Add Task</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -10,14 +10,13 @@
         <ion-label>Informations</ion-label>
       </ion-item-divider>
       <ion-item lines="full">
-        <ion-input autocorrect="on" formControlName="title" autofocus="on" clearInput="true" clearOnEdit="true"
-          color="dark" inputmode="text" placeholder="Project Name" required="true">
+        <ion-input autocorrect="on" formControlName="taskTitle" autofocus="on" clearInput="true" clearOnEdit="true"
+          color="dark" inputmode="text" placeholder="Task Name" required="true">
         </ion-input>
       </ion-item>
       <ion-item lines="full">
-        <ion-textarea autocorrect="on" formControlName="title" autofocus="on" clearInput="true" clearOnEdit="true"
-          color="dark" inputmode="text" formControlName="description" rows="6" cols="20"
-          placeholder="Project description...">
+        <ion-textarea autocorrect="on" formControlName="taskDescription" autofocus="on" clearInput="true" clearOnEdit="true"
+          color="dark" inputmode="text" rows="6" cols="20" placeholder="Task description...">
         </ion-textarea>
       </ion-item>
     </ion-item-group>
@@ -27,15 +26,28 @@
       </ion-item-divider>
       <ion-item>
         <ion-label>Start Date</ion-label>
-        <ion-datetime displayFormat="MM DD YYYY" formControlName="estimated_start_date" placeholder="Select Date">
+        <ion-datetime displayFormat="MM DD YYYY" formControlName="start_date" placeholder="Select Date">
         </ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>End Date</ion-label>
-        <ion-datetime displayFormat="MM DD YYYY" formControlName="estimated_end_date" placeholder="Select Date">
+        <ion-datetime displayFormat="MM DD YYYY" formControlName="end_date" placeholder="Select Date">
         </ion-datetime>
       </ion-item>
     </ion-item-group>
+    
+    <ion-list>
+      <ion-item>
+        <ion-label>Select project</ion-label>
+        <ion-select value="project" okText="Okay" cancelText="Dismiss" >
+          <ion-select-option *ngFor="let item of listProject" [value]="item._Id" >{{item.title}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-list>
+
+
+
     <ion-item-group>
       <ion-item-divider>
         <ion-label>Developer Team</ion-label>
@@ -70,7 +82,7 @@
   </form>
 </ion-content>
 <ion-footer>
-  <ion-button type="submit" expand="full" [disabled]="addForm.invalid || listDevTeam.length==0" fill="solid" color="primary"
-    (click)="saveProject()">Add Project
+  <ion-button type="submit" expand="full" [disabled]="addForm.invalid || listDevTeam.length==0" fill="solid"
+    color="primary" (click)="saveTask()">Add Task
   </ion-button>
 </ion-footer>

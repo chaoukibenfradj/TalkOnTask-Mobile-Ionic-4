@@ -59,7 +59,7 @@ export class AppComponent {
   getUserType(userType): string {
     switch (userType) {
       case 'pm':
-        return 'Project Manager'
+        return 'Project Manager';
         break;
       case 'dev':
         return 'Developper';

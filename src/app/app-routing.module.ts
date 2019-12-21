@@ -13,6 +13,7 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
+
     path: 'chat-list-messages/:id',
     loadChildren: './chat-list-messages/chat-list-messages.module#ChatListMessagesPageModule'
   },
@@ -28,6 +29,7 @@ const routes: Routes = [
     path: 'project-add',
     loadChildren: './project-add/project-add.module#ProjectAddPageModule'
   },
+    { path: 'task-add', loadChildren: './task-add/task-add.module#TaskAddPageModule' }
 
 
 ];
