@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Chat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-content fullscreen>
+    <ion-list>
+      <ion-list-header>
+        Recent Conversations
+      </ion-list-header>
+
+      <ion-item *ngFor="let user of listUsers" (click)="getMessages(user._id)">
+        <ion-avatar slot="start">
+          <img src="assets/imgs/avatar-finn.png">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ user.firstName+' '+user.lastName | capitalize }}</h2>
+          <h3>Developer</h3>
+          <p>{{ 'ddsqcvfdbfgfdsqcvbndsvxcbn dsvb nfvdswvxc bnbdswvxbc ndsvf' | shorten:'30' }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+
+  </ion-content>
