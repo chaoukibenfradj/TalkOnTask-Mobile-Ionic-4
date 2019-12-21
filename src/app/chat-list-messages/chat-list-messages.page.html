@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{ (selectedUser && selectedUser._id) ? (selectedUser.firstName+' '+selectedUser.lastName | capitalize) : 'Please Wait ...'}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content #content>
+
+
+
+  <div class="center-div" *ngIf="listMessages.length==0">
+    <ion-icon name="chatboxes" color="grey" class="error-icon"></ion-icon>
+    No Messages Yet !
+  </div>
+
+  <ion-list no-lines class="msgbubble">
+    <div class="innermsg" [ngClass]="(message.fromId==currentUser._id) ? 'right slide-in-right' :'left slide-in-left'"
+      *ngFor="let message of listMessages">
+      {{message.message}}
+    </div>
+  </ion-list>
+
+</ion-content>
+<form [formGroup]="messageForm">
+  <ion-footer class="chat-footer">
+
+    <ion-input id="myInput" formControlName="message" autofocus="on" autocorrect="on" clearInput="true"
+      clearOnEdit="true" inputmode="text" placeholder="Enter your message ..."></ion-input>
+
+    <ion-button class="send-btn" (click)="sendMessage()" [disabled]="messageForm.invalid" icon-only shape="round"
+      color="primary" fill="outline" size="small">
+      <ion-icon name="send">
+      </ion-icon>
+    </ion-button>
+  </ion-footer>
+</form>

@@ -1,6 +1,6 @@
 import { User } from './../models/user.model';
 import { HttpClient } from '@angular/common/http';
-import { SAVE_USER, GET_ALL_USERS, LOGIN_USER, GET_ALL_USER_BY_TYPE } from './../utils/API_URLS';
+import { SAVE_USER, GET_ALL_USERS, LOGIN_USER, GET_ALL_USER_BY_TYPE, GET_USER_BY_ID } from './../utils/API_URLS';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Response } from '../models/response.model';
@@ -10,27 +10,34 @@ import { Response } from '../models/response.model';
 })
 export class UserService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   addUser(user): Observable<any> {
     const URL = SAVE_USER;
-    return this._http.post<User>(URL, user);
+    return this.http.post<User>(URL, user);
   }
 
   getAllUsers(): Observable<any> {
     const URL = GET_ALL_USERS;
-    return this._http.get(URL);
+    return this.http.get(URL);
+  }
+
+  getUserById(id): Observable<Response> {
+    const URL = GET_USER_BY_ID + id;
+    return this.http.get(URL);
   }
 
   loginUser(email, password): Observable<Response> {
     const URL = LOGIN_USER;
+    // tslint:disable-next-line:object-literal-shorthand
     const body = { email: email, password: password };
-    return this._http.post<Response>(URL, body);
+    return this.http.post<Response>(URL, body);
   }
 
   getAllUserByType(userType: string): Observable<Response> {
-    const URL = GET_ALL_USER_BY_TYPE + userType ;
-    return this._http.get<Response>(URL) ;
+    const URL = GET_ALL_USER_BY_TYPE + userType;
+    return this.http.get<Response>(URL);
   }
+
 
 }

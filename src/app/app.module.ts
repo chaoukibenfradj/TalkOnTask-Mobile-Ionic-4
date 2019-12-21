@@ -10,9 +10,16 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './utils/guards/auth-guard.service';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { API_URL } from './utils/API_URLS';
+
+
+const config: SocketIoConfig = { url: API_URL, options: {} };
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -20,7 +27,9 @@ import { AuthGuardService } from './utils/guards/auth-guard.service';
       mode: 'ios'
     }),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    SocketIoModule.forRoot(config)
+
   ],
   providers: [
     StatusBar,
