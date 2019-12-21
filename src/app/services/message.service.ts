@@ -1,4 +1,4 @@
-import { GET_MESSAGES } from './../utils/API_URLS';
+import { GET_MESSAGES, GET_LAST_MESSAGES } from './../utils/API_URLS';
 import { Observable, from } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -21,6 +21,11 @@ export class MessageService {
     getMessages(fromId, toId): Observable<Response> {
         const URL = GET_MESSAGES + `${fromId}/${toId}`;
         return this.http.get(URL);
+    }
+
+    getLastMessages(id): Observable<Response> {
+      const URL = GET_LAST_MESSAGES + id;
+      return this.http.get(URL) ;
     }
 
 }

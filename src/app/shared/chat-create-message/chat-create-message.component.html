@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+    <ion-title>New Message</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <ion-item>
+    <ion-input autofocus="on"
+      [value]="(choosedDestination && choosedDestination._id) ? (choosedDestination.firstName+' '+choosedDestination.lastName | capitalize) :''"
+      color="dark" placeholder="Destination" required="true">
+      <ion-icon name="person" color="dark" slot="start"></ion-icon>
+    </ion-input>
+    <ion-icon name="add" color="dark" slot="end" (click)="pickDestination()"></ion-icon>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating" color="grey">Message</ion-label>
+    <ion-textarea rows="22" cols="" [(ngModel)]="messageText" clearOnEdit="true" placeholder="Enter your message ...">
+    </ion-textarea>
+  </ion-item>
+</ion-content>
+
+<ion-footer>
+  <ion-button type="submit" [disabled]="messageText.length==0 || !choosedDestination" expand="full" fill="solid"
+    color="primary" (click)="sendMessage()">Send Message
+  </ion-button>
+</ion-footer>

@@ -1,28 +1,46 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button icon-only (click)="openModal()">
+        <ion-icon name="add" color="primary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Chat</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
   <ion-content fullscreen>
-    <ion-list>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+        refreshingText="Refreshing..."></ion-refresher-content>
+    </ion-refresher>
+    <ion-list *ngIf="listUsers.length>0">
       <ion-list-header>
         Recent Conversations
       </ion-list-header>
-
-      <ion-item *ngFor="let user of listUsers" (click)="getMessages(user._id)">
+      <ion-item *ngFor="let messages of listUsers" (click)="getMessages(messages)">
         <ion-avatar slot="start">
           <img src="assets/imgs/avatar-finn.png">
         </ion-avatar>
         <ion-label>
-          <h2>{{ user.firstName+' '+user.lastName | capitalize }}</h2>
+          <h2>
+            {{ (messages.fromId._id != currentUser._id) ? (messages.fromId.firstName+' '+messages.fromId.lastName | capitalize) :(messages.toId.firstName+' '+messages.toId.lastName | capitalize) }}
+          </h2>
           <h3>Developer</h3>
-          <p>{{ 'ddsqcvfdbfgfdsqcvbndsvxcbn dsvb nfvdswvxc bnbdswvxbc ndsvf' | shorten:'30' }}</p>
+          <p style="display: flex;
+          justify-content: space-between;">
+            <span>{{ messages.message | shorten:'30' }}</span>
+            <span>{{ messages.sentDate | date:'hh:mm dd/MM/yyyy'}}</span>
+          </p>
         </ion-label>
       </ion-item>
     </ion-list>
-
-
+    <div class="center-div" *ngIf="listUsers.length==0">
+      <ion-icon name="chatboxes" color="grey" class="error-icon"></ion-icon>
+      No Messages Yet !
+    </div>
   </ion-content>

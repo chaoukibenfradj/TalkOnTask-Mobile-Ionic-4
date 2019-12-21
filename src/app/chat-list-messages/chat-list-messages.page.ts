@@ -7,6 +7,7 @@ import { User } from '../models/user.model';
 import { Socket } from 'ngx-socket-io';
 import { AuthService } from '../services/auth.service';
 import { MessageService } from '../services/message.service';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'app-chat-list-messages',
@@ -14,7 +15,6 @@ import { MessageService } from '../services/message.service';
   styleUrls: ['./chat-list-messages.page.scss'],
 })
 export class ChatListMessagesPage implements OnInit {
-  @ViewChild('myInput', { static: false }) myInput: ElementRef;
 
   selectedUserId: string;
   selectedUser: User;
@@ -23,6 +23,8 @@ export class ChatListMessagesPage implements OnInit {
     message: ['', Validators.required]
   });
   currentUser: User;
+  @ViewChild(IonContent, { static: false }) content: IonContent;
+
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -46,10 +48,15 @@ export class ChatListMessagesPage implements OnInit {
     );
   }
 
+  ionViewWillEnter(): void {
+  }
+
   getMessages() {
     this.messageService.getMessages(this.currentUser._id, this.selectedUserId)
       .subscribe(data => {
-        this.listMessages = data.data ;
+        this.listMessages = data.data;
+        this.scrollToBottom();
+
       }, err => {
         console.log(err);
 
@@ -60,13 +67,16 @@ export class ChatListMessagesPage implements OnInit {
     this.socket.on('msg:' + this.currentUser._id + ':' + this.selectedUserId, (message) => {
       console.log('Message recvd', message);
       this.listMessages.push(message);
+      this.scrollToBottom();
+
     });
     this.socket.on('sent:' + this.currentUser._id + ':' + this.selectedUserId, (message) => {
       console.log('Message Sent', message);
       this.listMessages.push(message);
+      this.scrollToBottom();
+
     });
   }
-
 
   getUserById() {
     this.userService.getUserById(this.selectedUserId)
@@ -75,11 +85,6 @@ export class ChatListMessagesPage implements OnInit {
       }, err => {
         console.log(err);
       });
-  }
-
-
-  resize() {
-    this.myInput.nativeElement.style.height = this.myInput.nativeElement.scrollHeight + 'px';
   }
 
   sendMessage() {
@@ -91,6 +96,14 @@ export class ChatListMessagesPage implements OnInit {
     message.messageType = 0;
     this.messageService.sendMessage(message);
     this.messageForm.reset();
+    this.scrollToBottom();
   }
 
+  scrollToBottom() {
+    setTimeout(() => {
+
+      this.content.scrollToBottom(300);
+
+    });
+  }
 }
