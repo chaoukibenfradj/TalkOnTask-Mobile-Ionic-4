@@ -20,6 +20,7 @@ export class TaskAddPage implements OnInit {
     taskDescription: ['', Validators.required],
     start_date: ['', Validators.required],
     end_date: ['', Validators.required],
+    projectId: ['', Validators.required]
   });
 
   listProject = [];
@@ -78,6 +79,8 @@ export class TaskAddPage implements OnInit {
     });
     listDevAsString = listDevAsString.substring(1, listDevAsString.length - 1);
     task.devTeamId = listDevAsString;
+    console.log(task);
+
     this.taskService.addTask(task).subscribe(data => {
       console.log(data);
     }, err => {

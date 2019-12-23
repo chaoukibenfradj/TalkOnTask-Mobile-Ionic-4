@@ -30,6 +30,6 @@ export class HomePage implements OnInit {
         console.log(data);
       }, err => {
         console.log(err);
-      })
+      });
   }
 }

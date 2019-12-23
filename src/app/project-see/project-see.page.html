@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+<ion-buttons slot='start'>
+    <ion-back-button></ion-back-button>
+</ion-buttons>
+
+    <ion-title>Project Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="welcome-card">
+    <img src="/assets/imgs/project.png" alt="" />
+    <ion-card-header>
+      <ion-card-title>{{(currentproject) ? currentproject.title : 'Please wait ...' }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{(currentproject) ? currentproject.description : 'Please wait ...' }}</p>
+      <h2>Developer team</h2>
+      <ion-list>
+        <ion-item>
+          <ion-avatar slot="start">
+            <img src="assets/imgs/avatar-finn.png">
+          </ion-avatar>
+          <ion-label>
+            <h2></h2>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Profil</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content parallax-header no-bounce class="bg-modal">
+    <div class="header">
+
+        <ion-buttons class="btn">
+            <ion-button routerLink="/profil-update/{{currentUser._id}}">
+                <ion-icon name="settings" color="light"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-buttons >
+            <ion-button class="btn2" routerLink="/photo-update/{{currentUser._id}}">
+                <ion-icon name="camera" color="light"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+    </div>
+    <div class="main-content" text-wrap text-center>
+        <div class="circular"></div>
+        <h2>{{currentUser.firstName}} {{currentUser.lastName}}</h2>
+        <p>{{currentUser.userRole}}</p>
+        <hr>
+        <ion-list no-lines>
+            <ion-item>
+                <ion-icon name="mail" color="primary" item-start class="icon"> </ion-icon>
+                {{currentUser.email}}
+            </ion-item>
+
+            <ion-item>
+                <ion-icon name="calendar" color="primary" item-start class="icon"></ion-icon>
+                {{currentUser.birthday}}
+            </ion-item>
+
+
+            <ion-item>
+                <ion-icon name="transgender" color="primary" item-start class="icon"></ion-icon>
+                {{currentUser.gender}}
+            </ion-item>
+
+            <ion-item>
+                <ion-icon item-start name="pin" color="primary" class="icon"></ion-icon>
+                <p>{{currentUser.address}}</p>
+            </ion-item>
+        </ion-list>
+        <h2>Projects</h2>
+        <hr>
+
+
+
+    </div>
+
+</ion-content>

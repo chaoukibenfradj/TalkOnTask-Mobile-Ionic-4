@@ -16,16 +16,27 @@
 
 <ion-content>
 
-  <!-- <ion-card class="welcome-card">
+  <ion-list *ngIf="listProjects.length>0">
+    <ion-card class="welcome-card">
       <img src="/assets/imgs/project.png" alt="" />
-      <ion-card-header>
-        <ion-card-subtitle>Project</ion-card-subtitle>
-        <ion-card-title>Food Delivry Project</ion-card-title>
-      </ion-card-header>
       <ion-card-content>
-        <p>Application to enable food delivry for everyone. You can chose your own meal !</p>
+        <ion-list *ngFor="let item of listProjects">
+          <ion-item>
+            <ion-avatar slot="start">
+              <img src="assets/imgs/iconset.png">
+            </ion-avatar>
+            <ion-label>{{item.title}} 
+              <ion-buttons class="btn" slot="end">
+                <ion-button routerLink="/project-see/{{item._id}}">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-label>
+          </ion-item>
+        </ion-list>
       </ion-card-content>
-    </ion-card> -->
+    </ion-card>
+  </ion-list>
 
 
   <div class="center-div" *ngIf="listProjects.length==0">

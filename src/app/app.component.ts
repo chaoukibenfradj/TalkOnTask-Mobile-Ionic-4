@@ -20,9 +20,9 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
+      title: 'Profil',
+      url: '/profil-details',
+      icon: 'person'
     },
     {
       title: 'Chat',
@@ -50,7 +50,7 @@ export class AppComponent {
 
       this.socket.on('test', () => {
         console.log('Recieved MSG');
-      })
+      });
 
     });
 

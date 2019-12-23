@@ -10,3 +10,5 @@ export const GET_MESSAGES = API_URL + 'message/get/';
 export const GET_LAST_MESSAGES = API_URL + 'message/lastMessages/';
 export const GET_ALL_PROJECTS = API_URL + 'project/all';
 export const ADD_TASK = API_URL + 'task/addT';
+export const SEE_PROJECT = API_URL + 'project/p/';
+

@@ -62,6 +62,7 @@ export class ProjectAddPage implements OnInit {
     project.estimated_start_date = this.addForm.get('estimated_start_date').value;
     project.estimated_end_date = this.addForm.get('estimated_end_date').value;
     let listDevAsString = '';
+    project.chef = this.currentUser._id ;
     this.listDevTeam.forEach((element, index) => {
       listDevAsString += element._id + ':';
     });

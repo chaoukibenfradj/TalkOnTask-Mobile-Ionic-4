@@ -4,7 +4,7 @@ export interface Project {
     _id: string;
     title: string;
     description: string;
-    chef: User;
+    chef: any;
     devTeamId: User[] | string;
     estimated_start_date: string;
     estimated_end_date: string;
