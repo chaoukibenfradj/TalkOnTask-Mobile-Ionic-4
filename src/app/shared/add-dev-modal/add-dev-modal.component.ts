@@ -29,13 +29,13 @@ export class AddDevModalComponent implements OnInit {
       this.listDevFromServer = data.data;
     }, err => {
       this.dismissModal();
-    })
+    });
   }
 
   dismissModal() {
     this.modalController.dismiss({
-      'dismissed': true, 
-      'listDev' : this.listDev
+      dismissed: true,
+      listDev : this.listDev
     });
   }
   addToDevList(item) {
@@ -44,12 +44,12 @@ export class AddDevModalComponent implements OnInit {
   }
 
   removeItemFromDevList(item) {
-    this.listDev.splice(this.listDev.findIndex((element) => { return element._id == item._id }), 1);
+    this.listDev.splice(this.listDev.findIndex((element) => element._id === item._id), 1);
     console.log(this.listDev);
   }
 
   itemExistInList(id: string): boolean {
-    return this.listDev.findIndex((element) => { return element._id == id }) != -1;
+    return this.listDev.findIndex((element) => element._id === id) !== -1;
   }
 
 }

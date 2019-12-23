@@ -10,10 +10,15 @@ import { AuthService } from '../services/auth.service';
 export class ProfilDetailsPage implements OnInit {
 
   currentUser: User;
-  constructor(private authService: AuthService ) { }
+  isUpdating = false;
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.currentUser = this.authService.getUser();
+  }
+
+  updateToggle() {
+    this.isUpdating = !this.isUpdating;
   }
 
 

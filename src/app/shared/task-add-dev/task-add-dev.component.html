@@ -1,0 +1,32 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Available Developers</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <ion-list>
+    <ion-item *ngFor="let item of listDev">
+      <ion-avatar slot="start">
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{item.firstName}} {{item.lastName}}</h2>
+        <h3>Title</h3>
+      </ion-label>
+      
+      <ion-button *ngIf="choosedDestination && choosedDestination._id!==item._id" (click)="addToDevList(item)" icon-only shape="round" fill="outline"
+        size="small">
+        <ion-icon class="remove-icon" name="add" color="grey"></ion-icon>
+      </ion-button>
+
+      <ion-button *ngIf="choosedDestination && choosedDestination._id===item._id" (click)="removeItemFromDevList(item)" icon-only shape="round"
+        fill="outline" size="small" color="danger">
+        <ion-icon class="remove-icon" name="close" color="danger"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+  </ion-list>
+</ion-content>

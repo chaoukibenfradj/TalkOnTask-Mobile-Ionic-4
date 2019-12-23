@@ -1,6 +1,6 @@
 import { User } from './../models/user.model';
 import { HttpClient } from '@angular/common/http';
-import { SAVE_USER, GET_ALL_USERS, LOGIN_USER, GET_ALL_USER_BY_TYPE, GET_USER_BY_ID } from './../utils/API_URLS';
+import { SAVE_USER, GET_ALL_USERS, LOGIN_USER, GET_ALL_USER_BY_TYPE, GET_USER_BY_ID, GET_ALL_DEV_BY_PROJECT_ID } from './../utils/API_URLS';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Response } from '../models/response.model';
@@ -37,6 +37,11 @@ export class UserService {
   getAllUserByType(userType: string): Observable<Response> {
     const URL = GET_ALL_USER_BY_TYPE + userType;
     return this.http.get<Response>(URL);
+  }
+
+  getAllDevByProjectId(id): Observable<Response> {
+    const URL = GET_ALL_DEV_BY_PROJECT_ID + id;
+    return this.http.get(URL);
   }
 
 

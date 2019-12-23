@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot='start'>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Add Task</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -15,8 +18,8 @@
         </ion-input>
       </ion-item>
       <ion-item lines="full">
-        <ion-textarea autocorrect="on" formControlName="taskDescription" autofocus="on" clearInput="true" clearOnEdit="true"
-          color="dark" inputmode="text" rows="6" cols="20" placeholder="Task description...">
+        <ion-textarea autocorrect="on" formControlName="taskDescription" autofocus="on" clearInput="true"
+          clearOnEdit="true" color="dark" inputmode="text" rows="6" cols="20" placeholder="Task description...">
         </ion-textarea>
       </ion-item>
     </ion-item-group>
@@ -35,33 +38,31 @@
         </ion-datetime>
       </ion-item>
     </ion-item-group>
-    
-
-
-
     <ion-item-group>
       <ion-item-divider>
-        <ion-label>Developer Team</ion-label>
+        <ion-label>
+          Developer
+        </ion-label>
         <ion-button (click)="addDevMember()" class="divider-buttom" slot="end" icon-only shape="round" fill="clear"
           size="small">
           <ion-icon class="add-icon" name="add" color="grey"></ion-icon>
         </ion-button>
       </ion-item-divider>
       <div class="dev-team-group">
-        <div class="empty-group-team" *ngIf="listDevTeam.length==0">
-          No Developer Team
+        <div class="empty-group-team" *ngIf="!choosedDev">
+          No Developer Selected
         </div>
-        <div *ngIf="listDevTeam.length>0">
+        <div *ngIf="choosedDev && choosedDev._id">
           <ion-list class="scrollable-list">
-            <ion-item *ngFor="let item of listDevTeam">
+            <ion-item>
               <ion-avatar slot="start">
                 <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
               </ion-avatar>
               <ion-label>
-                <h2>{{item.firstName}} {{item.lastName}}</h2>
+                <h2>{{choosedDev.firstName}} {{choosedDev.lastName}}</h2>
                 <h3>Developer</h3>
               </ion-label>
-              <ion-button (click)="removeItemFromDevList(item)" icon-only shape="round" color="danger" fill="outline"
+              <ion-button (click)="removeItemFromDevList()" icon-only shape="round" color="danger" fill="outline"
                 size="small">
                 <ion-icon name="close" color="danger"></ion-icon>
               </ion-button>
@@ -73,7 +74,7 @@
   </form>
 </ion-content>
 <ion-footer>
-  <ion-button type="submit" expand="full" [disabled]="addForm.invalid || listDevTeam.length==0" fill="solid"
-    color="primary" (click)="saveTask()">Add Task
+  <ion-button type="submit" expand="full" [disabled]="addForm.invalid || !choosedDev" fill="solid" color="primary"
+    (click)="saveTask()">Add Task
   </ion-button>
 </ion-footer>

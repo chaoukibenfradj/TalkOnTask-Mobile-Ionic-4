@@ -1,3 +1,4 @@
+import { PipesModule } from './../utils/pipes.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +11,7 @@ import { HomePage } from './home.page';
   imports: [
     CommonModule,
     FormsModule,
+    PipesModule,
     IonicModule,
     RouterModule.forChild([
       {

@@ -1,3 +1,4 @@
+import { PipesModule } from './../utils/pipes.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,6 +7,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ProjectSeePage } from './project-see.page';
+import { SharedModule } from '../shared/shared.module';
+import { TaskAddDevComponent } from '../shared/task-add-dev/task-add-dev.component';
 
 const routes: Routes = [
   {
@@ -18,9 +21,12 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    SharedModule,
+    PipesModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
+  entryComponents: [TaskAddDevComponent],
   declarations: [ProjectSeePage]
 })
 export class ProjectSeePageModule {}

@@ -25,10 +25,9 @@ const routes: Routes = [
     path: 'project-add',
     loadChildren: './project-add/project-add.module#ProjectAddPageModule'
   },
-  { path: 'task-add', loadChildren: './task-add/task-add.module#TaskAddPageModule' },
+  { path: 'task-add/:idProject', loadChildren: './task-add/task-add.module#TaskAddPageModule' },
 
   { path: 'project-see/:id', loadChildren: './project-see/project-see.module#ProjectSeePageModule' },
-  { path: 'profil-update', loadChildren: './profil-update/profil-update.module#ProfilUpdatePageModule' },
   { path: 'profil-details', loadChildren: './profil-details/profil-details.module#ProfilDetailsPageModule' }
 
 

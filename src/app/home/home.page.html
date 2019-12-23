@@ -13,35 +13,18 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
-  <ion-list *ngIf="listProjects.length>0">
-    <ion-card class="welcome-card">
-      <img src="/assets/imgs/project.png" alt="" />
-      <ion-card-content>
-        <ion-list *ngFor="let item of listProjects">
-          <ion-item>
-            <ion-avatar slot="start">
-              <img src="assets/imgs/iconset.png">
-            </ion-avatar>
-            <ion-label>{{item.title}} 
-              <ion-buttons class="btn" slot="end">
-                <ion-button routerLink="/project-see/{{item._id}}">
-                  <ion-icon name="information-circle-outline"></ion-icon>
-                </ion-button>
-              </ion-buttons>
-            </ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-  </ion-list>
-
-
+  <ion-card class="welcome-card" *ngFor="let project of listProjects" (click)="gotoProjectDetails(project._id)">
+    <img src="/assets/imgs/project.png" alt="" />
+    <ion-card-header class="card-header">
+      <ion-card-title>{{project.title | capitalize}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="card-content">
+      <p>{{project.description | shorten:'30' | capitalize}}</p>
+    </ion-card-content>
+  </ion-card>
   <div class="center-div" *ngIf="listProjects.length==0">
     <ion-icon name="clipboard" color="grey" class="error-icon"></ion-icon>
     No Projects Yet !
   </div>
-
 </ion-content>

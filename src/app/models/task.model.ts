@@ -3,8 +3,8 @@ import { User } from './user.model';
 
 export interface Task {
     _id: string;
-    projectId: Project;
-    devTeamId: User[] | string;
+    projectId: Project | string;
+    devId: User | string;
     taskTitle: string;
     taskDescription: string;
     start_date: string;

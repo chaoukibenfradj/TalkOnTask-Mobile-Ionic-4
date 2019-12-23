@@ -1,24 +1,22 @@
 <ion-header>
     <ion-toolbar>
+        <ion-buttons slot='end'>
+            <ion-button icon-only (click)="updateToggle()" *ngIf="!isUpdating">
+                <ion-icon name="create" color="primary"></ion-icon>
+            </ion-button>
+            <ion-button icon-only (click)="updateToggle()" *ngIf="isUpdating">
+                <ion-icon name="checkmark-circle-outline" color="primary"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="start">
+            <ion-menu-button>
+            </ion-menu-button>
+        </ion-buttons>
         <ion-title>Profil</ion-title>
     </ion-toolbar>
 </ion-header>
-
 <ion-content parallax-header no-bounce class="bg-modal">
     <div class="header">
-
-        <ion-buttons class="btn">
-            <ion-button routerLink="/profil-update/{{currentUser._id}}">
-                <ion-icon name="settings" color="light"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-
-        <ion-buttons >
-            <ion-button class="btn2" routerLink="/photo-update/{{currentUser._id}}">
-                <ion-icon name="camera" color="light"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-
     </div>
     <div class="main-content" text-wrap text-center>
         <div class="circular"></div>
@@ -30,15 +28,12 @@
                 <ion-icon name="mail" color="primary" item-start class="icon"> </ion-icon>
                 {{currentUser.email}}
             </ion-item>
-
             <ion-item>
                 <ion-icon name="calendar" color="primary" item-start class="icon"></ion-icon>
                 {{currentUser.birthday}}
             </ion-item>
-
-
             <ion-item>
-                <ion-icon name="transgender" color="primary" item-start class="icon"></ion-icon>
+                <ion-icon name="contacts" color="primary" item-start class="icon"></ion-icon>
                 {{currentUser.gender}}
             </ion-item>
 
@@ -48,10 +43,5 @@
             </ion-item>
         </ion-list>
         <h2>Projects</h2>
-        <hr>
-
-
-
     </div>
-
 </ion-content>

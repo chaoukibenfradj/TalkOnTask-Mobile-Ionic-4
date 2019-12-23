@@ -1,3 +1,4 @@
+import { GET_ALL_PROJECTS, GET_ALL_TASK_BY_PROJECT_ID } from './../utils/API_URLS';
 
 
 import { HttpClient } from '@angular/common/http';
@@ -18,6 +19,11 @@ export class TaskService {
     addTask(task): Observable<Response> {
         const URL = ADD_TASK;
         return this.http.post(URL, task);
+    }
+
+    getAllTasksByProjectId(id): Observable<Response> {
+        const URL = GET_ALL_TASK_BY_PROJECT_ID + id;
+        return this.http.get(URL);
     }
 
 }

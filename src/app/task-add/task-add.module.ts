@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { TaskAddPage } from './task-add.page';
 import { SharedModule } from '../shared/shared.module';
 import { AddDevModalComponent } from '../shared/add-dev-modal/add-dev-modal.component';
+import { TaskAddDevComponent } from '../shared/task-add-dev/task-add-dev.component';
 
 const routes: Routes = [
   {
@@ -26,7 +27,7 @@ const routes: Routes = [
     ReactiveFormsModule,
   ],
   entryComponents : [
-    AddDevModalComponent
+    TaskAddDevComponent
   ],
   declarations: [TaskAddPage]
 })

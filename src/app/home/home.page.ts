@@ -3,6 +3,8 @@ import { ProjectService } from '../services/project.service';
 import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
 import { Project } from '../models/project.model';
+import { Router } from '@angular/router';
+import { UIService } from '../services/ui.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +17,9 @@ export class HomePage implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private uiService: UIService,
   ) { }
 
   ngOnInit() {
@@ -24,12 +28,19 @@ export class HomePage implements OnInit {
   }
 
   getManagerProjects() {
+    this.uiService.startLoading();
     this.projectService.getManagerProjects(this.currentUser._id)
       .subscribe(data => {
         this.listProjects = data.data;
         console.log(data);
+        this.uiService.stopLoading();
       }, err => {
+        this.uiService.stopLoading();
         console.log(err);
       });
+  }
+
+  gotoProjectDetails(id) {
+    this.router.navigate(['/project-see/' + id]);
   }
 }

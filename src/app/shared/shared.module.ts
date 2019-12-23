@@ -6,15 +6,16 @@ import { IonicModule } from '@ionic/angular';
 import { ChatPickDestinationComponent } from './chat-pick-destination/chat-pick-destination.component';
 import { PipesModule } from '../utils/pipes.module';
 import { FormsModule } from '@angular/forms';
+import { TaskAddDevComponent } from './task-add-dev/task-add-dev.component';
 
 @NgModule({
-  declarations: [AddDevModalComponent, ChatCreateMessageComponent, ChatPickDestinationComponent],
+  declarations: [AddDevModalComponent, ChatCreateMessageComponent, ChatPickDestinationComponent, TaskAddDevComponent],
   imports: [
     CommonModule,
     IonicModule,
     FormsModule,
     PipesModule
   ],
-  exports: [AddDevModalComponent, ChatCreateMessageComponent, ChatPickDestinationComponent]
+  exports: [AddDevModalComponent, ChatCreateMessageComponent, ChatPickDestinationComponent, TaskAddDevComponent]
 })
 export class SharedModule { }

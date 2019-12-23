@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProfilUpdatePage } from './profil-update.page';
+import { TaskAddDevComponent } from './task-add-dev.component';
 
-describe('ProfilUpdatePage', () => {
-  let component: ProfilUpdatePage;
-  let fixture: ComponentFixture<ProfilUpdatePage>;
+describe('TaskAddDevComponent', () => {
+  let component: TaskAddDevComponent;
+  let fixture: ComponentFixture<TaskAddDevComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProfilUpdatePage ],
+      declarations: [ TaskAddDevComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProfilUpdatePage);
+    fixture = TestBed.createComponent(TaskAddDevComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,12 +1,14 @@
 import { TaskService } from './../services/task.service';
 import { Task } from './../models/task.model';
-import { ProjectService } from './../services/project.service';
 import { ModalController } from '@ionic/angular';
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, Form } from '@angular/forms';
 import { User } from '../models/user.model';
-import { AddDevModalComponent } from '../shared/add-dev-modal/add-dev-modal.component';
+import { TaskAddDevComponent } from '../shared/task-add-dev/task-add-dev.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { UIService } from '../services/ui.service';
 
 @Component({
   selector: 'app-task-add',
@@ -19,72 +21,69 @@ export class TaskAddPage implements OnInit {
     taskTitle: ['', Validators.required],
     taskDescription: ['', Validators.required],
     start_date: ['', Validators.required],
-    end_date: ['', Validators.required],
-    projectId: ['', Validators.required]
+    end_date: ['', Validators.required]
   });
 
-  listProject = [];
   listDevTeam = [];
+  selectedProject: string;
+  choosedDev: User;
   currentUser: User;
 
-  constructor(private formBuilder: FormBuilder,
-              public authService: AuthService,
-              public modalController: ModalController,
-              private projectService: ProjectService,
-              private taskService: TaskService
+  constructor(
+    private formBuilder: FormBuilder,
+    public authService: AuthService,
+    public modalController: ModalController,
+    private taskService: TaskService,
+    private location: Location,
+    private uiService: UIService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.currentUser = this.authService.getUser();
-    this.getProjects();
+    this.activatedRoute.paramMap.subscribe(data => {
+      this.selectedProject = data.get('idProject');
+    });
   }
 
   async addDevMember() {
     const modal = await this.modalController.create({
-      component: AddDevModalComponent,
+      component: TaskAddDevComponent,
       componentProps: {
-        listDevFromParent: this.listDevTeam
+        projectId: this.selectedProject,
+        oldPicked: this.choosedDev
       }
     });
     await modal.present();
     const { data } = await modal.onWillDismiss();
     if (data) {
       console.log(data);
-      this.listDevTeam = data.listDev;
+      this.choosedDev = data.choosedDestination;
     }
   }
 
-  getProjects() {
-    this.projectService.getAllProjects().subscribe(res => {
-      this.listProject = res.data;
-    }, err => {
-      console.log(err);
-    });
-  }
-
   removeItemFromDevList(item) {
-    this.listDevTeam.splice(this.listDevTeam.findIndex((element) => { return element._id === item._id }), 1);
+    this.choosedDev = null;
   }
 
   saveTask() {
-    let task = {} as Task;
+    this.uiService.startLoading();
+    const task = {} as Task;
     task.taskTitle = this.addForm.get('taskTitle').value;
     task.taskDescription = this.addForm.get('taskDescription').value;
     task.start_date = this.addForm.get('start_date').value;
     task.end_date = this.addForm.get('end_date').value;
-    task.projectId = this.addForm.get('projectId').value;
-    let listDevAsString = '';
-    this.listDevTeam.forEach((element, index) => {
-      listDevAsString += element._id + ':';
-    });
-    listDevAsString = listDevAsString.substring(1, listDevAsString.length - 1);
-    task.devTeamId = listDevAsString;
+    task.devId = this.choosedDev._id;
+    task.projectId = this.selectedProject;
     console.log(task);
-
     this.taskService.addTask(task).subscribe(data => {
       console.log(data);
+      this.uiService.stopLoading();
+      this.location.back();
     }, err => {
       console.log(err);
+      this.uiService.stopLoading();
+
     });
   }
 
