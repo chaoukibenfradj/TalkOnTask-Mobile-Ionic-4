@@ -20,6 +20,11 @@ export class AppComponent {
       icon: 'home'
     },
     {
+      title: 'My Projects',
+      url: '/list-projects',
+      icon: 'apps'
+    },
+    {
       title: 'Profil',
       url: '/profil-details',
       icon: 'person'
@@ -47,7 +52,6 @@ export class AppComponent {
       this.splashScreen.hide();
       this.currentUser = this.authService.getUser();
       console.log(this.currentUser);
-
       this.socket.on('test', () => {
         console.log('Recieved MSG');
       });
@@ -62,7 +66,7 @@ export class AppComponent {
         return 'Project Manager';
         break;
       case 'dev':
-        return 'Developper';
+        return 'Developer';
         break;
       default:
         break;

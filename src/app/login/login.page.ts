@@ -25,15 +25,15 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private _userService: UserService,
     private _authService: AuthService,
-    private _router: Router, 
-    private _menuController : MenuController
+    private _router: Router,
+    private _menuController: MenuController
   ) { }
 
   ngOnInit() {
-    this._menuController.enable(false) ;
+    this._menuController.enable(false);
     if (this._authService.isTokenValid()) {
       this._router.navigate(['/home']);
-      this._menuController.enable(true) ;
+      this._menuController.enable(true);
     }
   }
 
@@ -46,16 +46,17 @@ export class LoginPage implements OnInit {
       this.loginForm.get('email').value,
       this.loginForm.get('password').value
     ).subscribe((data: Response) => {
-      var decoded = jwt_decode(data.data);
+      const decoded = jwt_decode(data.data);
       this._authService.saveToken(data.data);
       this._authService.saveUser(decoded.user);
       this._router.navigate(['/home']);
-      this._menuController.enable(true) ;
+      this._menuController.enable(true);
     }, err => {
+      this._menuController.enable(false);
       console.log('====================================');
       console.log(err);
       console.log('====================================');
-    })
+    });
   }
 
 }

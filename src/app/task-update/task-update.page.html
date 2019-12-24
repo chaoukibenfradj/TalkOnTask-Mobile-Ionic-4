@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot='start'>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{(currentTask) ? currentTask.taskTitle : 'Please wait ...'}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="updateForm" *ngIf="currentTask && updateForm">
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>Informations</ion-label>
+      </ion-item-divider>
+      <ion-item lines="full">
+        <ion-input autocorrect="on" formControlName="taskTitle" autofocus="on" clearInput="true" clearOnEdit="true"
+          color="dark" inputmode="text" placeholder="Task Name" required="true">
+        </ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-textarea autocorrect="on" formControlName="taskDescription" autofocus="on" clearInput="true"
+          clearOnEdit="true" color="dark" inputmode="text" rows="6" cols="20" placeholder="Task description...">
+        </ion-textarea>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>Dates</ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>Start Date</ion-label>
+        <ion-datetime displayFormat="MM DD YYYY" formControlName="start_date" placeholder="Select Date">
+        </ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>End Date</ion-label>
+        <ion-datetime displayFormat="MM DD YYYY" formControlName="end_date" placeholder="Select Date">
+        </ion-datetime>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>
+          Developer
+        </ion-label>
+        <ion-button (click)="addDevMember()" class="divider-buttom" slot="end" icon-only shape="round" fill="clear"
+          size="small">
+          <ion-icon class="add-icon" name="add" color="grey"></ion-icon>
+        </ion-button>
+      </ion-item-divider>
+      <div class="dev-team-group">
+        <div class="empty-group-team" *ngIf="!choosedDev">
+          No Developer Selected
+        </div>
+        <div *ngIf="choosedDev && choosedDev._id">
+          <ion-list class="scrollable-list">
+            <ion-item>
+              <ion-avatar slot="start">
+                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+              </ion-avatar>
+              <ion-label>
+                <h2>{{choosedDev.firstName}} {{choosedDev.lastName}}</h2>
+                <h3>Developer</h3>
+              </ion-label>
+              <ion-button (click)="removeItemFromDevList()" icon-only shape="round" color="danger" fill="outline"
+                size="small">
+                <ion-icon name="close" color="danger"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+    </ion-item-group>
+  </form>
+</ion-content>
+<ion-footer>
+  <ion-button type="submit" expand="full" *ngIf="currentTask && updateForm" [disabled]="updateForm.invalid || !choosedDev || invalidForm()" fill="solid" color="primary"
+    (click)="saveUpdate()">Update Task
+  </ion-button>
+</ion-footer>

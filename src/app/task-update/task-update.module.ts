@@ -1,21 +1,18 @@
-import { PipesModule } from './../utils/pipes.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ProjectSeePage } from './project-see.page';
+import { TaskUpdatePage } from './task-update.page';
 import { SharedModule } from '../shared/shared.module';
 import { TaskAddDevComponent } from '../shared/task-add-dev/task-add-dev.component';
-import { LongPressModule } from 'ionic-long-press';
-
 
 const routes: Routes = [
   {
     path: '',
-    component: ProjectSeePage
+    component: TaskUpdatePage
   }
 ];
 
@@ -23,13 +20,14 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    SharedModule,
-    PipesModule,
-    LongPressModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule,
+    ReactiveFormsModule,
   ],
-  entryComponents: [TaskAddDevComponent],
-  declarations: [ProjectSeePage]
+  entryComponents: [
+    TaskAddDevComponent
+  ],
+  declarations: [TaskUpdatePage]
 })
-export class ProjectSeePageModule {}
+export class TaskUpdatePageModule { }

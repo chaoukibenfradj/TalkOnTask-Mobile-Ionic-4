@@ -6,16 +6,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ProjectSeePage } from './project-see.page';
-import { SharedModule } from '../shared/shared.module';
-import { TaskAddDevComponent } from '../shared/task-add-dev/task-add-dev.component';
-import { LongPressModule } from 'ionic-long-press';
-
+import { ListProjectsPage } from './list-projects.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProjectSeePage
+    component: ListProjectsPage
   }
 ];
 
@@ -23,13 +19,10 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    SharedModule,
     PipesModule,
-    LongPressModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  entryComponents: [TaskAddDevComponent],
-  declarations: [ProjectSeePage]
+  declarations: [ListProjectsPage]
 })
-export class ProjectSeePageModule {}
+export class ListProjectsPageModule {}

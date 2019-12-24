@@ -26,6 +26,24 @@
     </ion-card-content>
   </ion-card>
 
+
+  <ion-card>
+    <ion-card-header class="card-header">
+      <ion-card-subtitle color="primary" class="title">Project Manager</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content class="list-dev-team card-content" *ngIf="currentproject">
+      <ion-chip>
+        <ion-avatar>
+          <img src="assets/imgs/girl-avatar.png" />
+        </ion-avatar>
+        <ion-label>
+          {{(currentproject)?(currentproject.chef.firstName+' '+currentproject.chef.lastName | capitalize) : 'Please wait ...'}}
+        </ion-label>
+      </ion-chip>
+    </ion-card-content>
+  </ion-card>
+
+
   <ion-card>
     <ion-card-header class="card-header">
       <ion-card-subtitle color="primary" class="title">Development Team</ion-card-subtitle>
@@ -39,18 +57,40 @@
       </ion-chip>
     </ion-card-content>
   </ion-card>
+
+  <ion-card *ngIf="(currentuser && currentuser.userRole=='dev') ? true : false">
+    <ion-card-header class="card-header">
+      <ion-card-subtitle color="primary" class="title to-do"> My Tasks
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content style="padding: 1px;">
+      <ion-list lines="none" *ngIf="listMyTasks.length>0" class="task-list">
+        <ion-item *ngFor="let item of listMyTasks" (click)="gotoTaskDetails(item)" ion-long-press
+          (longPressed)="showTasksOption(0, item)">
+          <ion-label>
+            <h2>{{item.taskTitle}}</h2>
+            <p>{{item.taskDescription | shorten:'30'}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <div class="empty-group-team" *ngIf="listTasks.length==0">
+        No Tasks yet !
+      </div>
+    </ion-card-content>
+  </ion-card>
+
   <ion-card>
     <ion-card-header class="card-header">
-      <ion-card-subtitle color="primary" class="title to-do">Tasks
-        <ion-button class="add-task-buttom" icon-only shape="round" fill="clear" size="small"
-          routerLink="/task-add/{{(currentproject)?currentproject._id:''}}">
+      <ion-card-subtitle color="primary" class="title to-do">All Tasks
+        <ion-button *ngIf="(currentuser && currentuser.userRole=='pm') ? true : false" class="add-task-buttom" icon-only
+          shape="round" fill="clear" size="small" routerLink="/task-add/{{(currentproject)?currentproject._id:''}}">
           <ion-icon name="add" color="primary"></ion-icon>
         </ion-button>
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content style="padding: 1px;">
       <ion-list lines="none" *ngIf="listTasks.length>0" class="task-list">
-        <ion-item *ngFor="let item of listTasks">
+        <ion-item *ngFor="let item of listTasks" (click)="gotoTaskDetails(item)" ion-long-press (longPressed)="showTasksOption(1,item)">
           <ion-label>
             <h2>{{item.taskTitle}}</h2>
             <p>{{item.taskDescription | shorten:'30'}}</p>
