@@ -1,9 +1,9 @@
 import { ActivatedRoute } from '@angular/router';
 import { TaskService } from './../services/task.service';
 import { Task } from './../models/task.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UIService } from '../services/ui.service';
-import { ToastController } from '@ionic/angular';
+import { ToastController, IonContent } from '@ionic/angular';
 import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
 
@@ -18,6 +18,8 @@ export class TaskDetailsPage implements OnInit {
   isUpdating = false;
   newTaskState: string;
   currentUser: User;
+  @ViewChild(IonContent, { static: false }) content: IonContent;
+
   constructor(
     private taskService: TaskService,
     private activatedRoute: ActivatedRoute,
@@ -54,6 +56,7 @@ export class TaskDetailsPage implements OnInit {
       this.uiService.startLoading();
       this.taskService.updateTaskState(this.currentTaskId, this.newTaskState)
         .subscribe(async (data) => {
+          this.uiService.stopLoading();
           console.log(data);
           this.isUpdating = false;
           this.currentTask.state = this.newTaskState;
@@ -66,7 +69,6 @@ export class TaskDetailsPage implements OnInit {
             showCloseButton: true,
           });
           await toast.present();
-          this.uiService.stopLoading();
         }, err => {
           console.log(err);
           this.uiService.stopLoading();
@@ -78,9 +80,17 @@ export class TaskDetailsPage implements OnInit {
   }
 
   updateToggle() {
+    if (!this.isUpdating) {
+      this.scrollToBottom();
+    }
     this.isUpdating = !this.isUpdating;
   }
 
+  scrollToBottom() {
+    setTimeout(() => {
+      this.content.scrollToBottom(300);
+    });
+  }
 
   stateName(state): string {
     switch (state) {

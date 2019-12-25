@@ -25,6 +25,11 @@ export class AppComponent {
       icon: 'apps'
     },
     {
+      title: 'Task Requests',
+      url: '/task-request-list',
+      icon: 'hand'
+    },
+    {
       title: 'Profil',
       url: '/profil-details',
       icon: 'person'

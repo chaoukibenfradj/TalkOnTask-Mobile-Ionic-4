@@ -33,7 +33,7 @@
           <h3>Developer</h3>
           <p style="display: flex;
           justify-content: space-between;">
-            <span>{{ messages.message | shorten:'30' }}</span>
+            <span>{{(messages.fromId._id === currentUser._id) ? 'You: ' : ''}} {{ messages.message | shorten:'30' }}</span>
             <span>{{ messages.sentDate | date:'hh:mm dd/MM/yyyy'}}</span>
           </p>
         </ion-label>

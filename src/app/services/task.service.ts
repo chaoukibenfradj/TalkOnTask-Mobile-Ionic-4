@@ -1,7 +1,7 @@
 import {
     GET_ALL_TASK_BY_PROJECT_ID,
     GET_ALL_TASK_BY_ID, UPDATE_TASK_STATE,
-    DELETE_TASK, UPDATE_TASK
+    DELETE_TASK, UPDATE_TASK, SAVE_TASK_REQUEST, GET_TASK_REQ_BY_DEV_ID, ACCPET_TASK_REQ, DELETE_TASK_REQ
 } from './../utils/API_URLS';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -52,6 +52,26 @@ export class TaskService {
             newTask: newTask
         };
         return this.http.patch(URL, body);
+    }
+
+    saveTaskRequest(taskReq): Observable<Response> {
+        const URL = SAVE_TASK_REQUEST;
+        return this.http.post(URL, taskReq);
+    }
+
+    getTaskReqByDevId(id): Observable<Response> {
+        const URL = GET_TASK_REQ_BY_DEV_ID + id;
+        return this.http.get(URL);
+    }
+
+    acceptTaskReq(id): Observable<Response> {
+        const URL = ACCPET_TASK_REQ + id;
+        return this.http.patch(URL, {});
+    }
+
+    deleteTaskReq(id): Observable<Response> {
+        const URL = DELETE_TASK_REQ + id;
+        return this.http.delete(URL);
     }
 
 }

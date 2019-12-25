@@ -101,9 +101,7 @@ export class ChatListMessagesPage implements OnInit {
 
   scrollToBottom() {
     setTimeout(() => {
-
       this.content.scrollToBottom(300);
-
     });
   }
 }

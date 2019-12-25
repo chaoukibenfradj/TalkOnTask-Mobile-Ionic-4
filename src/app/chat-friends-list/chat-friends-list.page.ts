@@ -6,10 +6,9 @@ import { AuthService } from '../services/auth.service';
 import { MessageService } from '../services/message.service';
 import { Message } from '../models/message.model';
 import { ModalController } from '@ionic/angular';
-import { ChatPickDestinationComponent } from '../shared/chat-pick-destination/chat-pick-destination.component';
 import { ChatCreateMessageComponent } from '../shared/chat-create-message/chat-create-message.component';
 import { Socket } from 'ngx-socket-io';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-chat-friends-list',
   templateUrl: './chat-friends-list.page.html',
@@ -51,9 +50,11 @@ export class ChatFriendsListPage implements OnInit {
         this.listUsers.splice(index, 1);
       }
       this.listUsers.push(message.message);
-
+      this.sortArrayList();
     });
-
+  }
+  sortArrayList() {
+    this.listUsers = this.listUsers.sort((a, b) => moment(b.sentDate).diff(moment(a.sentDate)));
   }
 
   // getUsers() {

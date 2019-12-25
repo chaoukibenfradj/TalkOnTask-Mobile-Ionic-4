@@ -7,7 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from '../models/task.model';
 import { UIService } from '../services/ui.service';
 import { User } from '../models/user.model';
-import { ActionSheetController, AlertController } from '@ionic/angular';
+import { ActionSheetController, AlertController, ToastController } from '@ionic/angular';
+import { TaskRequest } from '../models/task-request.model';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class ProjectSeePage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private alertController: AlertController,
     private taskService: TaskService,
+    private toastController: ToastController,
     public actionSheetController: ActionSheetController,
     private router: Router,
     private authService: AuthService) { }
@@ -38,7 +40,6 @@ export class ProjectSeePage implements OnInit {
       this.seeProject();
       this.getAllTasksByProjectId();
       this.currentuser = this.authService.getUser();
-
     });
   }
   seeProject() {
@@ -60,16 +61,15 @@ export class ProjectSeePage implements OnInit {
         this.listTasks = data.data;
         if (this.currentuser && this.currentuser.userRole === 'dev') {
           this.listMyTasks = this.listTasks.filter((element) => element.devId === this.currentuser._id);
+          this.listTasks = this.listTasks.filter((element) => element.devId !== this.currentuser._id);
         }
       }, err => {
         console.log(err);
       });
   }
-
   gotoTaskDetails(item) {
     this.router.navigate(['/task-details/' + item._id]);
   }
-
   async showTasksOption(status, item) {
     if (!this.actionSheetShowed) {
       this.actionSheetShowed = true;
@@ -117,35 +117,47 @@ export class ProjectSeePage implements OnInit {
           }]
         });
       } else {
+        // tslint:disable-next-line:prefer-const
+        let actionsButtons = [{
+          text: 'Details',
+          icon: 'information-circle-outline',
+          handler: () => {
+            this.detailsTask(item);
+            this.actionSheetShowed = false;
+          }
+        }, {
+          text: 'Cancel',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+            this.actionSheetShowed = false;
+          }
+        }];
+        if (status === 1) {
+          actionsButtons.push(
+            {
+              text: 'Send Working Request',
+              icon: 'hand',
+              handler: () => {
+                this.taskWorkingRequest(item);
+                this.actionSheetShowed = false;
+              }
+            }
+          );
+        }
         actionSheet = await this.actionSheetController.create({
           animated: true,
           backdropDismiss: true,
           keyboardClose: true,
           mode: 'md',
           header: 'Task',
-          buttons: [{
-            text: 'Details',
-            icon: 'information-circle-outline',
-            handler: () => {
-              this.detailsTask(item);
-              this.actionSheetShowed = false;
-            }
-          }, {
-            text: 'Cancel',
-            icon: 'close',
-            role: 'cancel',
-            handler: () => {
-              console.log('Cancel clicked');
-              this.actionSheetShowed = false;
-            }
-          }]
+          buttons: actionsButtons
         });
       }
       await actionSheet.present();
     }
-
   }
-
   async deleteTask(id) {
     const alert = await this.alertController.create({
       header: 'Confirm',
@@ -166,13 +178,38 @@ export class ProjectSeePage implements OnInit {
     });
     await alert.present();
   }
-
   editTask(item) {
     console.log('Edit =>', item);
     this.router.navigate(['/task-update/' + item._id]);
   }
   detailsTask(item) {
     this.gotoTaskDetails(item);
+  }
+
+  async taskWorkingRequest(item) {
+    console.log('Working Request', item);
+    const taskReq = {} as TaskRequest;
+    taskReq.devId = this.currentuser._id;
+    taskReq.taskId = item._id;
+    taskReq.projectId = this.currentproject._id;
+    console.log(taskReq);
+    const toast = await this.toastController.create({
+      message: `Working request on this task sent successfully !`,
+      duration: 3000,
+      animated: true,
+      mode: 'ios',
+      position: 'bottom',
+      showCloseButton: true,
+    });
+    this.taskService.saveTaskRequest(taskReq)
+      .subscribe(async (data) => {
+        console.log(data);
+        await toast.present();
+      }, async (err) => {
+        console.log(err);
+        toast.message = 'A problem has been occured ! Please try again !';
+        await toast.present();
+      });
   }
 
   deletTaskById(id) {

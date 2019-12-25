@@ -41,6 +41,9 @@
         </ion-label>
       </ion-chip>
     </ion-card-content>
+    <div class="empty-group-team" *ngIf="!currentproject || !currentproject.chef">
+      Please wait ...
+    </div>
   </ion-card>
 
 
@@ -56,6 +59,9 @@
         <ion-label>{{(currentproject)?(dev.firstName+' '+dev.lastName | capitalize) : 'Please wait ...'}}</ion-label>
       </ion-chip>
     </ion-card-content>
+    <div class="empty-group-team" *ngIf="currentproject && currentproject.devTeamId.length==0">
+      No Development Team associated !
+    </div>
   </ion-card>
 
   <ion-card *ngIf="(currentuser && currentuser.userRole=='dev') ? true : false">
@@ -73,7 +79,7 @@
           </ion-label>
         </ion-item>
       </ion-list>
-      <div class="empty-group-team" *ngIf="listTasks.length==0">
+      <div class="empty-group-team" *ngIf="listMyTasks.length==0">
         No Tasks yet !
       </div>
     </ion-card-content>
@@ -90,7 +96,8 @@
     </ion-card-header>
     <ion-card-content style="padding: 1px;">
       <ion-list lines="none" *ngIf="listTasks.length>0" class="task-list">
-        <ion-item *ngFor="let item of listTasks" (click)="gotoTaskDetails(item)" ion-long-press (longPressed)="showTasksOption(1,item)">
+        <ion-item *ngFor="let item of listTasks" (click)="gotoTaskDetails(item)" ion-long-press
+          (longPressed)="showTasksOption(1,item)">
           <ion-label>
             <h2>{{item.taskTitle}}</h2>
             <p>{{item.taskDescription | shorten:'30'}}</p>
