@@ -2,7 +2,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { TaskService } from './../services/task.service';
 import { ProjectService } from './../services/project.service';
 import { Project } from './../models/project.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from '../models/task.model';
 import { UIService } from '../services/ui.service';
@@ -23,6 +23,38 @@ export class ProjectSeePage implements OnInit {
   listMyTasks: Task[] = [];
   currentuser: User;
   actionSheetShowed = false;
+
+
+  testArray = [
+    {
+      'name': 'To Do',
+      'value': 10,
+      'extra': {
+        'code': 'de'
+      }
+    },
+    {
+      'name': 'Doing',
+      'value': 2,
+      'extra': {
+        'code': 'us'
+      }
+    },
+    {
+      'name': 'Done',
+      'value': 3,
+      'extra': {
+        'code': 'fr'
+      }
+    }
+  ];
+
+  view: any;
+  colorScheme = {
+    domain: ['#f04141', '#ffce00', '#10dc60']
+  };
+
+
   constructor(
     private uiService: UIService,
     private projectService: ProjectService,
@@ -32,7 +64,14 @@ export class ProjectSeePage implements OnInit {
     private toastController: ToastController,
     public actionSheetController: ActionSheetController,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService) {
+    this.view = [innerWidth / 1.1, 200];
+  }
+
+  onResize(event) {
+    this.view = [event.target.innerWidth / 1.1, 200];
+  }
+
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(data => {
       this.projectId = data.get('id');
@@ -54,6 +93,7 @@ export class ProjectSeePage implements OnInit {
         this.uiService.stopLoading();
       });
   }
+
   getAllTasksByProjectId() {
     this.taskService.getAllTasksByProjectId(this.projectId)
       .subscribe(data => {

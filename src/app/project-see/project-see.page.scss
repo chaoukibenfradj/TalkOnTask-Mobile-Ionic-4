@@ -56,3 +56,20 @@ h2 {
     max-height: 30vh;
     overflow: auto;
 }
+
+.task-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.todo {
+    color: var(--ion-color-danger);
+}
+
+.doing {
+    color: var(--ion-color-warning);
+}
+
+.done {
+    color: var(--ion-color-success);
+}

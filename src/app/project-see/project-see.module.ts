@@ -10,7 +10,7 @@ import { ProjectSeePage } from './project-see.page';
 import { SharedModule } from '../shared/shared.module';
 import { TaskAddDevComponent } from '../shared/task-add-dev/task-add-dev.component';
 import { LongPressModule } from 'ionic-long-press';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 const routes: Routes = [
   {
@@ -24,6 +24,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     SharedModule,
+    NgxChartsModule,
     PipesModule,
     LongPressModule,
     IonicModule,
@@ -32,4 +33,4 @@ const routes: Routes = [
   entryComponents: [TaskAddDevComponent],
   declarations: [ProjectSeePage]
 })
-export class ProjectSeePageModule {}
+export class ProjectSeePageModule { }

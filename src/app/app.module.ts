@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -28,6 +29,7 @@ const config: SocketIoConfig = { url: API_URL, options: {} };
       mode: 'ios'
     }),
     AppRoutingModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     SocketIoModule.forRoot(config)
 

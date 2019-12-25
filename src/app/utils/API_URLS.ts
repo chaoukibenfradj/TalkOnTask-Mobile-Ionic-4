@@ -20,5 +20,6 @@ export const DELETE_TASK = API_URL + 'task/delete/';
 export const UPDATE_TASK = API_URL + 'task/update/';
 export const SAVE_TASK_REQUEST = API_URL + 'task/req/';
 export const GET_TASK_REQ_BY_DEV_ID = API_URL + 'task/req/dev/';
+export const GET_TASK_REQ_BY_PM_ID = API_URL + 'task/req/pm/';
 export const DELETE_TASK_REQ = API_URL + 'task/req/';
 export const ACCPET_TASK_REQ = API_URL + 'task/req/ok/';

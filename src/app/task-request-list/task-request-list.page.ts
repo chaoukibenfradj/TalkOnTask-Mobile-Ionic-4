@@ -34,12 +34,30 @@ export class TaskRequestListPage implements OnInit {
   loadReqTasks(event?) {
     if (this.currentUser.userRole === 'dev') {
       this.getTaskByDevId(event);
+    } else {
+      this.getTaskByPMId(event);
     }
   }
 
   dateDiffAsInt(date): number {
     return (moment(date).diff(moment(new Date())));
   }
+
+  getTaskByPMId(event?) {
+    this.uiService.startLoading();
+    this.taskService.getTaskReqByPMId(this.currentUser._id)
+      .subscribe(data => {
+        console.log(data);
+        // tslint:disable-next-line:no-unused-expression
+        (event) ? event.target.complete() : null;
+        this.listTaskReq = data.data;
+        this.uiService.stopLoading();
+      }, err => {
+        this.uiService.stopLoading();
+        console.log(err);
+      });
+  }
+
 
   getTaskByDevId(event?) {
     this.uiService.startLoading();

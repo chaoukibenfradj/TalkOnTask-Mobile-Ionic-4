@@ -1,7 +1,7 @@
 import {
     GET_ALL_TASK_BY_PROJECT_ID,
     GET_ALL_TASK_BY_ID, UPDATE_TASK_STATE,
-    DELETE_TASK, UPDATE_TASK, SAVE_TASK_REQUEST, GET_TASK_REQ_BY_DEV_ID, ACCPET_TASK_REQ, DELETE_TASK_REQ
+    DELETE_TASK, UPDATE_TASK, SAVE_TASK_REQUEST, GET_TASK_REQ_BY_DEV_ID, ACCPET_TASK_REQ, DELETE_TASK_REQ, GET_TASK_REQ_BY_PM_ID
 } from './../utils/API_URLS';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -61,6 +61,11 @@ export class TaskService {
 
     getTaskReqByDevId(id): Observable<Response> {
         const URL = GET_TASK_REQ_BY_DEV_ID + id;
+        return this.http.get(URL);
+    }
+
+    getTaskReqByPMId(id): Observable<Response> {
+        const URL = GET_TASK_REQ_BY_PM_ID + id;
         return this.http.get(URL);
     }
 

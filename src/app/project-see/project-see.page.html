@@ -75,7 +75,22 @@
           (longPressed)="showTasksOption(0, item)">
           <ion-label>
             <h2>{{item.taskTitle}}</h2>
-            <p>{{item.taskDescription | shorten:'30'}}</p>
+            <p class="task-details">
+              <span>
+                {{item.taskDescription | shorten:'30'}}
+              </span>
+              <span [ngClass]="(item && item.state === 'todo') ? 'todo' : (item.state === 'doing') ? 'doing' : 'done'">
+                {{ 
+                  (item && item.state === 'todo') ? 'To Do' : '' 
+                }}
+                {{ 
+                  (item && item.state === 'doing') ? 'Doing' : '' 
+                }}
+                {{ 
+                  (item && item.state === 'done') ? 'Done' : '' 
+                }}
+              </span>
+            </p>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -100,7 +115,22 @@
           (longPressed)="showTasksOption(1,item)">
           <ion-label>
             <h2>{{item.taskTitle}}</h2>
-            <p>{{item.taskDescription | shorten:'30'}}</p>
+            <p class="task-details">
+              <span>
+                {{item.taskDescription | shorten:'30'}}
+              </span>
+              <span [ngClass]="(item && item.state === 'todo') ? 'todo' : (item.state === 'doing') ? 'doing' : 'done'">
+                {{ 
+                  (item && item.state === 'todo') ? 'To Do' : '' 
+                }}
+                {{ 
+                  (item && item.state === 'doing') ? 'Doing' : '' 
+                }}
+                {{ 
+                  (item && item.state === 'done') ? 'Done' : '' 
+                }}
+              </span>
+            </p>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -109,4 +139,21 @@
       </div>
     </ion-card-content>
   </ion-card>
+
+
+  <ion-card>
+    <ion-card-header class="card-header">
+      <ion-card-subtitle color="primary" class="title to-do">
+        Stats
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content style="padding: 1px;">
+      <div>
+        <ngx-charts-bar-vertical [xAxis]="true" [scheme]="colorScheme" [showXAxisLabel]="true" [showYAxisLabel]="true"
+          [view]="view" [results]="testArray">
+        </ngx-charts-bar-vertical>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
