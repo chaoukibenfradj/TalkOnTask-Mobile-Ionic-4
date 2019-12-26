@@ -11,10 +11,10 @@ export class UIService {
     constructor(private loadingController: LoadingController, private toastController: ToastController) {
     }
 
-    async startLoading() {
+    async startLoading(message?) {
         this.isLoading = true;
         return await this.loadingController.create({
-            message: 'Please wait ...',
+            message: (message) ? message : 'Please wait ...',
             animated: true,
             keyboardClose: true,
             spinner: 'crescent',

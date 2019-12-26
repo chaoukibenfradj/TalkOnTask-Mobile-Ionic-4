@@ -1,4 +1,7 @@
-export const API_URL = 'http://localhost:3000/';
+// export const API_URL = 'http://localhost:3000/';
+export const API_URL = 'http://192.168.1.56:3000/';
+
+
 export const SAVE_USER = API_URL + 'user/add';
 export const GET_ALL_USERS = API_URL + 'user/all';
 export const LOGIN_USER = API_URL + 'user/login';
@@ -23,3 +26,4 @@ export const GET_TASK_REQ_BY_DEV_ID = API_URL + 'task/req/dev/';
 export const GET_TASK_REQ_BY_PM_ID = API_URL + 'task/req/pm/';
 export const DELETE_TASK_REQ = API_URL + 'task/req/';
 export const ACCPET_TASK_REQ = API_URL + 'task/req/ok/';
+export const UPDATE_FCM_TOKEN = API_URL + 'user/token/';

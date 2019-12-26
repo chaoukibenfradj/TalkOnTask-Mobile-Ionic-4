@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ProjectService } from '../services/project.service';
 import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
@@ -10,7 +10,8 @@ import { UIService } from '../services/ui.service';
   templateUrl: './list-projects.page.html',
   styleUrls: ['./list-projects.page.scss'],
 })
-export class ListProjectsPage implements OnInit {
+export class ListProjectsPage implements OnInit, AfterViewInit {
+
   currentUser: User;
   listProjects: Project[] = [];
   constructor(
@@ -21,15 +22,17 @@ export class ListProjectsPage implements OnInit {
   ) { }
 
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit(): void {
     this.currentUser = this.authService.getUser();
     if (this.currentUser && this.currentUser.userRole === 'pm') {
       this.getManagerProjects();
     } else {
       this.getDevProjects();
     }
-
   }
-
   getManagerProjects(event?) {
     this.uiService.startLoading();
     this.projectService.getManagerProjects(this.currentUser._id)

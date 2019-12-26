@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { Response } from '../models/response.model';
 import * as jwt_decode from 'jwt-decode';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { MenuController, Platform, Events } from '@ionic/angular';
+import { FCM } from '@ionic-native/fcm/ngx';
+import { User } from '../models/user.model';
+import { UIService } from '../services/ui.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, AfterViewInit {
 
   showPassword = false;
+  currentUser: User;
 
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -23,17 +27,37 @@ export class LoginPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private _userService: UserService,
-    private _authService: AuthService,
-    private _router: Router,
-    private _menuController: MenuController
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router,
+    private menuController: MenuController,
+    private platform: Platform,
+    private fcm: FCM,
+    private events: Events,
+    private uiService: UIService
   ) { }
 
   ngOnInit() {
-    this._menuController.enable(false);
-    if (this._authService.isTokenValid()) {
-      this._router.navigate(['/home']);
-      this._menuController.enable(true);
+    this.uiService.startLoading('Checking your login information ...');
+  }
+  ngAfterViewInit() {
+    console.log('Login');
+    if (this.authService.isTokenValid()) {
+      this.userService.getUserById(this.authService.getUser()._id)
+        .subscribe((data => {
+          this.currentUser = data.data;
+          this.authService.saveUser(this.currentUser);
+          this.router.navigate(['/list-projects']);
+          this.menuController.enable(true);
+          this.publishCurrentUser();
+          this.getNotificationToken();
+        }), err => {
+          console.log(err);
+          this.uiService.stopLoading();
+        });
+    } else {
+      this.menuController.enable(false);
+      this.uiService.stopLoading();
     }
   }
 
@@ -41,18 +65,57 @@ export class LoginPage implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
+  getNotificationToken() {
+    this.platform.ready().then(() => {
+      this.fcm.getToken().then(token => {
+        console.log('Get The Token =>', token);
+        console.log('this is the current User : ', this.currentUser);
+        console.log('typeof:', typeof (this.currentUser.fcmToken));
+        console.log('Is diff : ', this.currentUser.fcmToken !== token);
+        if (typeof (this.currentUser.fcmToken) === 'undefined' || this.currentUser.fcmToken !== token) {
+          this.updateUserToken(token);
+        }
+      });
+      this.fcm.onTokenRefresh().subscribe(token => {
+        console.log('Get The Refresh Token =>', token);
+        if (typeof (this.currentUser.fcmToken) === 'undefined' || this.currentUser.fcmToken !== token) {
+          this.updateUserToken(token);
+        }
+      });
+    });
+  }
+
+  publishCurrentUser() {
+    this.events.publish('currentUser', this.currentUser);
+  }
+
+  updateUserToken(token) {
+    this.userService.updateFCMToken(this.currentUser._id, token)
+      .subscribe(() => {
+        console.log('Notif token setted !');
+        this.uiService.stopLoading();
+      }, err => {
+        console.log('Update Token error :', err);
+        this.uiService.stopLoading();
+      });
+  }
+
   onLogin() {
-    this._userService.loginUser(
+    this.userService.loginUser(
       this.loginForm.get('email').value,
       this.loginForm.get('password').value
     ).subscribe((data: Response) => {
       const decoded = jwt_decode(data.data);
-      this._authService.saveToken(data.data);
-      this._authService.saveUser(decoded.user);
-      this._router.navigate(['/home']);
-      this._menuController.enable(true);
+      this.authService.saveToken(data.data);
+      this.authService.saveUser(decoded.user);
+      this.router.navigate(['/list-projects']);
+      this.menuController.enable(true);
+      this.currentUser = decoded.user;
+      this.publishCurrentUser();
+
+      this.getNotificationToken();
     }, err => {
-      this._menuController.enable(false);
+      this.menuController.enable(false);
       console.log('====================================');
       console.log(err);
       console.log('====================================');

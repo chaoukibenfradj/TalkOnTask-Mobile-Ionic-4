@@ -1,6 +1,9 @@
 import { User } from './../models/user.model';
 import { HttpClient } from '@angular/common/http';
-import { SAVE_USER, GET_ALL_USERS, LOGIN_USER, GET_ALL_USER_BY_TYPE, GET_USER_BY_ID, GET_ALL_DEV_BY_PROJECT_ID } from './../utils/API_URLS';
+import {
+  SAVE_USER,
+  GET_ALL_USERS, LOGIN_USER, GET_ALL_USER_BY_TYPE, GET_USER_BY_ID, GET_ALL_DEV_BY_PROJECT_ID, UPDATE_FCM_TOKEN
+} from './../utils/API_URLS';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Response } from '../models/response.model';
@@ -27,6 +30,7 @@ export class UserService {
     return this.http.get(URL);
   }
 
+
   loginUser(email, password): Observable<Response> {
     const URL = LOGIN_USER;
     // tslint:disable-next-line:object-literal-shorthand
@@ -42,6 +46,11 @@ export class UserService {
   getAllDevByProjectId(id): Observable<Response> {
     const URL = GET_ALL_DEV_BY_PROJECT_ID + id;
     return this.http.get(URL);
+  }
+
+  updateFCMToken(id, token): Observable<Response> {
+    const URL = UPDATE_FCM_TOKEN + id;
+    return this.http.patch(URL, { token });
   }
 
 

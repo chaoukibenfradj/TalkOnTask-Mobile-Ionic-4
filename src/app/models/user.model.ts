@@ -9,4 +9,5 @@ export interface User {
     gender: string;
     profilPicture: string;
     userRole: string;
+    fcmToken: string;
 }

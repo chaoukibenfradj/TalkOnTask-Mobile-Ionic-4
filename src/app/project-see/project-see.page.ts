@@ -2,7 +2,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { TaskService } from './../services/task.service';
 import { ProjectService } from './../services/project.service';
 import { Project } from './../models/project.model';
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from '../models/task.model';
 import { UIService } from '../services/ui.service';
@@ -16,7 +16,8 @@ import { TaskRequest } from '../models/task-request.model';
   templateUrl: './project-see.page.html',
   styleUrls: ['./project-see.page.scss'],
 })
-export class ProjectSeePage implements OnInit {
+export class ProjectSeePage implements OnInit, AfterViewInit {
+
   projectId: string;
   currentproject: Project;
   listTasks: Task[] = [];
@@ -73,6 +74,9 @@ export class ProjectSeePage implements OnInit {
   }
 
   ngOnInit() {
+
+  }
+  ngAfterViewInit(): void {
     this.activatedRoute.paramMap.subscribe(data => {
       this.projectId = data.get('id');
       console.log('Params passed through routing=>', this.projectId);

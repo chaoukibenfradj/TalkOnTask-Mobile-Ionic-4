@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "307091765874",
+    "firebase_url": "https://talkontask-fbc6c.firebaseio.com",
+    "project_id": "talkontask-fbc6c",
+    "storage_bucket": "talkontask-fbc6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307091765874:android:6fb63d1a869d39da10a0eb",
+        "android_client_info": {
+          "package_name": "com.chs.talkontask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307091765874-klfkq626d1bflfmuhumvmft61mfelvfu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGxo-82hPFjSdOjupfDtlBYyL6CTXPQaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307091765874-klfkq626d1bflfmuhumvmft61mfelvfu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

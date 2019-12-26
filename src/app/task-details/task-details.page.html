@@ -22,13 +22,17 @@
       <h2>{{(currentTask) ? (currentTask.end_date | date:'dd/MM/yyyy') : 'Please wait ...' }}</h2>
       <ion-card-subtitle color="primary" class="title">Developer :</ion-card-subtitle>
       <h2>
-        {{(currentTask) ? (currentTask.devId._id === currentUser._id) ? 'Me' : (currentTask.devId.firstName+' '+currentTask.devId.lastName | capitalize) : 'Please wait ...' }}
+        {{
+          (currentTask && currentTask.devId==null) ? 'Deleted Developer' :
+          (currentTask && currentTask.devId!==null && currentTask.devId._id) ?
+          (currentTask.devId._id === currentUser._id) ? 'Me' : (currentTask.devId.firstName+' '+currentTask.devId.lastName | capitalize) : 'Please wait ...'
+        }}
       </h2>
       <ion-card-subtitle color="primary" class="title">State :</ion-card-subtitle>
       <h2 class="state">
         <span>{{(currentTask) ? (stateName(currentTask.state)) : 'Please wait ...' }}</span>
         <ion-button class="edit-button" icon-only shape="round" fill="clear" size="small" (click)="updateToggle()"
-          *ngIf="currentTask && currentUser && currentUser._id===currentTask.devId._id && !isUpdating">
+          *ngIf="currentTask && currentUser && currentTask.devId!==null && currentTask.devId._id && currentUser._id===currentTask.devId._id && !isUpdating">
           <ion-icon name="create" color="primary"></ion-icon>
         </ion-button>
         <ion-button class="edit-button" icon-only shape="round" fill="clear" size="small" (click)="changeTaskState()"

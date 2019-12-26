@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, MenuController, Events } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AuthService } from './services/auth.service';
 import { User } from './models/user.model';
 import { Socket } from 'ngx-socket-io';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -45,8 +45,10 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private authService: AuthService,
-    private socket: Socket
+    private socket: Socket,
+    private router: Router,
+    private menuCtrl: MenuController,
+    private events: Events,
   ) {
     this.initializeApp();
   }
@@ -55,14 +57,21 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.currentUser = this.authService.getUser();
+      this.events.subscribe('currentUser', (user) => {
+        this.currentUser = user ;
+      });
+
       console.log(this.currentUser);
       this.socket.on('test', () => {
         console.log('Recieved MSG');
       });
-
     });
+  }
 
+  logOut() {
+    localStorage.clear();
+    this.menuCtrl.enable(false);
+    this.router.navigate(['/login']);
   }
 
   getUserType(userType): string {

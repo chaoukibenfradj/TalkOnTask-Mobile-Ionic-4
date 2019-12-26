@@ -14,6 +14,7 @@ import { AuthGuardService } from './utils/guards/auth-guard.service';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { API_URL } from './utils/API_URLS';
 import { IonicGestureConfig } from './utils/IonicGestureConfig';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 
 const config: SocketIoConfig = { url: API_URL, options: {} };
@@ -36,6 +37,7 @@ const config: SocketIoConfig = { url: API_URL, options: {} };
   ],
   providers: [
     StatusBar,
+    FCM,
     AuthGuardService,
     { provide: HAMMER_GESTURE_CONFIG, useClass: IonicGestureConfig },
     SplashScreen,

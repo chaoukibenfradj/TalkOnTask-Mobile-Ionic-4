@@ -1,14 +1,16 @@
 import { User } from 'src/app/models/user.model';
 import { ModalController } from '@ionic/angular';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, AfterContentInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-chat-pick-destination',
   templateUrl: './chat-pick-destination.component.html',
   styleUrls: ['./chat-pick-destination.component.scss'],
 })
-export class ChatPickDestinationComponent implements OnInit {
+export class ChatPickDestinationComponent implements OnInit, AfterViewInit {
+
 
   @Input() oldPicked: User;
 
@@ -16,21 +18,28 @@ export class ChatPickDestinationComponent implements OnInit {
   choosedDestination = {} as User;
   constructor(
     public modalController: ModalController,
-    private userService: UserService
+    private userService: UserService,
+    private uiService: UIService
   ) { }
 
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit(): void {
     if (this.oldPicked && this.oldPicked._id) {
       this.choosedDestination = this.oldPicked;
     }
-
     this.getAllDev();
   }
 
   getAllDev() {
+    this.uiService.startLoading();
     this.userService.getAllUsers().subscribe(data => {
       this.listDev = data.data;
+      this.uiService.stopLoading();
     }, err => {
+      this.uiService.stopLoading();
       this.dismissModal();
     });
   }
