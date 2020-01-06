@@ -18,7 +18,8 @@ import { UIService } from '../services/ui.service';
 export class LoginPage implements OnInit, AfterViewInit {
 
   showPassword = false;
-  currentUser: User;
+  showLoginForm = false;
+  currentUser: User = null;
 
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -40,17 +41,18 @@ export class LoginPage implements OnInit, AfterViewInit {
   ngOnInit() {
     this.uiService.startLoading('Checking your login information ...');
   }
-  ngAfterViewInit() {
+  ionViewDidEnter() {
     console.log('Login');
     if (this.authService.isTokenValid()) {
       this.userService.getUserById(this.authService.getUser()._id)
         .subscribe((data => {
           this.currentUser = data.data;
           this.authService.saveUser(this.currentUser);
-          this.router.navigate(['/list-projects']);
-          this.menuController.enable(true);
           this.publishCurrentUser();
+          this.uiService.stopLoading();
+          this.menuController.enable(true);
           this.getNotificationToken();
+          this.router.navigate(['/list-projects']);
         }), err => {
           console.log(err);
           this.uiService.stopLoading();
@@ -58,8 +60,14 @@ export class LoginPage implements OnInit, AfterViewInit {
     } else {
       this.menuController.enable(false);
       this.uiService.stopLoading();
+      this.showLoginForm = true;
     }
   }
+  ngAfterViewInit() {
+
+  }
+
+
 
   showPasswordToggle() {
     this.showPassword = !this.showPassword;
@@ -101,6 +109,8 @@ export class LoginPage implements OnInit, AfterViewInit {
   }
 
   onLogin() {
+    this.uiService.startLoading();
+    this.showLoginForm = true;
     this.userService.loginUser(
       this.loginForm.get('email').value,
       this.loginForm.get('password').value
@@ -108,13 +118,14 @@ export class LoginPage implements OnInit, AfterViewInit {
       const decoded = jwt_decode(data.data);
       this.authService.saveToken(data.data);
       this.authService.saveUser(decoded.user);
-      this.router.navigate(['/list-projects']);
       this.menuController.enable(true);
       this.currentUser = decoded.user;
       this.publishCurrentUser();
-
       this.getNotificationToken();
+      this.router.navigate(['/list-projects']);
+      this.uiService.stopLoading();
     }, err => {
+      this.uiService.stopLoading();
       this.menuController.enable(false);
       console.log('====================================');
       console.log(err);

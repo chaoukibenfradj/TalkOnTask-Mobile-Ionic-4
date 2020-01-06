@@ -1,5 +1,6 @@
 // export const API_URL = 'http://localhost:3000/';
 export const API_URL = 'http://192.168.1.56:3000/';
+// export const API_URL = 'https://talkontask.herokuapp.com/';
 
 
 export const SAVE_USER = API_URL + 'user/add';

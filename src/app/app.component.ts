@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { NotificationService } from './services/notification.service';
+import { Component, AfterViewInit } from '@angular/core';
 
 import { Platform, MenuController, Events } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -6,13 +7,14 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { User } from './models/user.model';
 import { Socket } from 'ngx-socket-io';
 import { Router } from '@angular/router';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   public appPages = [
     {
       title: 'Home',
@@ -49,8 +51,11 @@ export class AppComponent {
     private router: Router,
     private menuCtrl: MenuController,
     private events: Events,
+    private notifService: NotificationService,
+    private fcm: FCM
   ) {
     this.initializeApp();
+    this.notifService.waitNotifi();
   }
 
   initializeApp() {
@@ -58,13 +63,14 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.events.subscribe('currentUser', (user) => {
-        this.currentUser = user ;
+        this.currentUser = user;
       });
 
       console.log(this.currentUser);
       this.socket.on('test', () => {
         console.log('Recieved MSG');
       });
+
     });
   }
 
@@ -72,6 +78,10 @@ export class AppComponent {
     localStorage.clear();
     this.menuCtrl.enable(false);
     this.router.navigate(['/login']);
+  }
+
+  ngAfterViewInit() {
+
   }
 
   getUserType(userType): string {

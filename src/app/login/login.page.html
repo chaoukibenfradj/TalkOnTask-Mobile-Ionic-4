@@ -1,12 +1,15 @@
 <ion-content padding>
-  <form [formGroup]="loginForm">
+
+  <div class="center-div" [ngClass]="(showLoginForm) ? 'logo-form' : ''">
+    <img src="assets/imgs/logo.png" alt="App Logo">
+  </div>
+  <form [formGroup]="loginForm" *ngIf="showLoginForm">
     <ion-item>
       <ion-input autocorrect="on" formControlName="email" autofocus="on" clearInput="true" color="dark" inputmode="text"
         placeholder="Enter your email" required="true">
         <ion-icon name="mail" color="dark" slot="start"></ion-icon>
       </ion-input>
     </ion-item>
-
     <ion-item>
       <ion-input autofocus="on" formControlName="password" color="dark" [type]="(showPassword) ? 'text' : 'password'"
         placeholder="Enter your password" required="true">
@@ -17,7 +20,6 @@
       <ion-icon class="show-password-class" name="eye-off" color="dark" slot="end" *ngIf="showPassword"
         (click)="showPasswordToggle()"></ion-icon>
     </ion-item>
-
     <p text-right class="forget-text">Forgot Password?</p>
     <ion-button type="submit" expand="block" shape="round" [disabled]="loginForm.invalid" fill="solid" color="primary"
       (click)="onLogin()">Login

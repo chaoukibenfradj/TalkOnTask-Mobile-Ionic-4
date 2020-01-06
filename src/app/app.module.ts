@@ -15,6 +15,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { API_URL } from './utils/API_URLS';
 import { IonicGestureConfig } from './utils/IonicGestureConfig';
 import { FCM } from '@ionic-native/fcm/ngx';
+import { NotificationService } from './services/notification.service';
 
 
 const config: SocketIoConfig = { url: API_URL, options: {} };

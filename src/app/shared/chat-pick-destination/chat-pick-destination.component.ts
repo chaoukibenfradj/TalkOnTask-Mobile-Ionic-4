@@ -23,10 +23,15 @@ export class ChatPickDestinationComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
+    this.uiService.startLoading();
 
   }
 
   ngAfterViewInit(): void {
+
+  }
+
+  ionViewDidEnter() {
     if (this.oldPicked && this.oldPicked._id) {
       this.choosedDestination = this.oldPicked;
     }
@@ -34,7 +39,6 @@ export class ChatPickDestinationComponent implements OnInit, AfterViewInit {
   }
 
   getAllDev() {
-    this.uiService.startLoading();
     this.userService.getAllUsers().subscribe(data => {
       this.listDev = data.data;
       this.uiService.stopLoading();

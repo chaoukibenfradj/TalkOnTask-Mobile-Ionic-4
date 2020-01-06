@@ -67,14 +67,13 @@ export class ChatListMessagesPage implements OnInit {
     this.socket.on('msg:' + this.currentUser._id + ':' + this.selectedUserId, (message) => {
       console.log('Message recvd', message);
       this.listMessages.push(message);
-      this.scrollToBottom();
+      setTimeout(() => { this.scrollToBottom(); }, 100);
 
     });
     this.socket.on('sent:' + this.currentUser._id + ':' + this.selectedUserId, (message) => {
       console.log('Message Sent', message);
       this.listMessages.push(message);
-      this.scrollToBottom();
-
+      setTimeout(() => { this.scrollToBottom(); }, 100);
     });
   }
 
@@ -96,6 +95,10 @@ export class ChatListMessagesPage implements OnInit {
     message.messageType = 0;
     this.messageService.sendMessage(message);
     this.messageForm.reset();
+  }
+
+  onInputEnter() {
+    console.log('Has focus');
     this.scrollToBottom();
   }
 

@@ -28,8 +28,8 @@
 <form [formGroup]="messageForm">
   <ion-footer class="chat-footer">
 
-    <ion-input id="myInput" formControlName="message" autofocus="on" autocorrect="on" clearInput="true"
-      clearOnEdit="true" inputmode="text" placeholder="Enter your message ..."></ion-input>
+    <ion-input (ionFocus)="onInputEnter()" id="myInput" formControlName="message" autofocus="on" autocomplete="on" autocorrect="on" clearInput="true"
+       inputmode="text" placeholder="Enter your message ..."></ion-input>
 
     <ion-button class="send-btn" (click)="sendMessage()" [disabled]="messageForm.invalid" icon-only shape="round"
       color="primary" fill="outline" size="small">

@@ -28,16 +28,17 @@ export class TaskDetailsPage implements OnInit {
     private uiService: UIService) { }
 
   ngOnInit() {
+    this.uiService.startLoading();
+  }
+  ionViewDidEnter() {
     this.currentUser = this.authService.getUser();
     this.activatedRoute.paramMap.subscribe(data => {
       this.currentTaskId = data.get('idTask');
       this.getTaskById();
     });
-
   }
 
   getTaskById() {
-    this.uiService.startLoading();
     this.taskService.getTaskById(this.currentTaskId).subscribe((data) => {
       this.currentTask = data.data;
       console.log(this.currentTask);

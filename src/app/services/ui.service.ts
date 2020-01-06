@@ -12,22 +12,24 @@ export class UIService {
     }
 
     async startLoading(message?) {
-        this.isLoading = true;
-        return await this.loadingController.create({
-            message: (message) ? message : 'Please wait ...',
-            animated: true,
-            keyboardClose: true,
-            spinner: 'crescent',
-            showBackdrop: true,
-            mode: 'ios',
-            backdropDismiss: false
-        }).then(a => {
-            a.present().then(() => {
+        if (!this.isLoading) {
+            return await this.loadingController.create({
+                message: (message) ? message : 'Please wait ...',
+                animated: true,
+                keyboardClose: true,
+                spinner: 'crescent',
+                showBackdrop: true,
+                mode: 'ios',
+                id: '1',
+                backdropDismiss: false
+            }).then(a => {
                 if (!this.isLoading) {
-                    a.dismiss().then(() => console.log('abort laoding'));
+                    a.present().then(() => {
+                        a.dismiss().then(() => console.log('abort laoding'));
+                    });
                 }
             });
-        });
+        }
     }
 
     async stopLoading() {
