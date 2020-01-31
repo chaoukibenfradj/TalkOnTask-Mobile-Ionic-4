@@ -40,6 +40,19 @@ export class AppComponent implements AfterViewInit {
       title: 'Chat',
       url: '/chat-friends-list',
       icon: 'chatboxes'
+    },
+    {
+      title: 'Projects Propositions',
+      url: '/client-projects',
+      icon: 'apps'
+    }
+  ];
+
+  public clientPages = [
+    {
+      title: 'Projects Propositions',
+      url: '/client-projects',
+      icon: 'apps'
     }
   ];
   currentUser: User;
@@ -64,6 +77,9 @@ export class AppComponent implements AfterViewInit {
       this.splashScreen.hide();
       this.events.subscribe('currentUser', (user) => {
         this.currentUser = user;
+        if (this.currentUser.userRole === 'client') {
+          this.appPages = this.clientPages;
+        }
       });
 
       console.log(this.currentUser);
@@ -91,6 +107,9 @@ export class AppComponent implements AfterViewInit {
         break;
       case 'dev':
         return 'Developer';
+        break;
+      case 'client':
+        return 'Client';
         break;
       default:
         break;

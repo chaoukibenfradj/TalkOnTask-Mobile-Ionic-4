@@ -1,5 +1,5 @@
 // export const API_URL = 'http://localhost:3000/';
-export const API_URL = 'http://192.168.1.56:3000/';
+export const API_URL = 'http://192.168.1.57:3000/';
 // export const API_URL = 'https://talkontask.herokuapp.com/';
 
 
@@ -28,3 +28,7 @@ export const GET_TASK_REQ_BY_PM_ID = API_URL + 'task/req/pm/';
 export const DELETE_TASK_REQ = API_URL + 'task/req/';
 export const ACCPET_TASK_REQ = API_URL + 'task/req/ok/';
 export const UPDATE_FCM_TOKEN = API_URL + 'user/token/';
+export const ADD_PROJECT_PROPOSITION = API_URL + 'project/proposition' ;
+export const GET_PROJECT_PROPOSITION_BY_CLIENT_ID = API_URL + 'project/proposition/client/' ;
+export const GET_PROJECT_PROPOSITION_ID = API_URL + 'project/proposition/' ;
+export const PROJECT_STATS = API_URL + 'project/stats/' ;

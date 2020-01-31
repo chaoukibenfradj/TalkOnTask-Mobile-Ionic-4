@@ -37,11 +37,26 @@ const routes: Routes = [
   { path: 'task-details/:idTask', loadChildren: './task-details/task-details.module#TaskDetailsPageModule' },
   { path: 'task-update/:idTask', loadChildren: './task-update/task-update.module#TaskUpdatePageModule' },
   { path: 'task-request-list', loadChildren: './task-request-list/task-request-list.module#TaskRequestListPageModule' },
+
+  {
+    path: 'client-projects',
+    loadChildren: () => import('./client-projects/client-projects.module').then(m => m.ClientProjectsPageModule)
+  },
+  {
+    path: 'add-client-projects',
+    loadChildren: () => import('./add-client-projects/add-client-projects.module').then(m => m.AddClientProjectsPageModule)
+  },
+  {
+    path: 'client-propositions-details/:id',
+    loadChildren: () => import('./client-propositions-details/client-propositions-details.module')
+      .then(m => m.ClientPropositionsDetailsPageModule)
+  },
   {
     path: '**',
     redirectTo: '/login',
     pathMatch: 'full'
   }
+
 ];
 
 

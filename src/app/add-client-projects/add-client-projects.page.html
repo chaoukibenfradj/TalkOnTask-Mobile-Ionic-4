@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot='start'>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Proposition</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="addForm">
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>Informations</ion-label>
+      </ion-item-divider>
+      <ion-item lines="full">
+        <ion-input autocorrect="on" formControlName="title" autofocus="on" clearInput="true" clearOnEdit="true"
+          color="dark" inputmode="text" placeholder="Project Name" required="true">
+        </ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-textarea autocorrect="on" autofocus="on" clearInput="true" clearOnEdit="true"
+          color="dark" inputmode="text" formControlName="description" rows="6" cols="20"
+          placeholder="Project description...">
+        </ion-textarea>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>Project Specifications</ion-label>
+      </ion-item-divider>
+      <div class="file-pick">
+      <ion-item lines="full">
+        <ion-input autocorrect="on" readonly formControlName="file_spec" color="dark" inputmode="text"
+          placeholder="Project Specifications File" required="true">
+        </ion-input>
+      </ion-item>
+      <ion-button type="submit" expand="block" size="small" fill="solid" color="primary"
+          (click)="pickFile()">Add PDF
+        </ion-button>
+      </div>
+    </ion-item-group>
+  </form>
+</ion-content>
+<ion-footer>
+  <ion-button type="submit" expand="full" [disabled]="addForm.invalid" fill="solid" color="primary"
+    (click)="saveProject()">Add Proposition
+  </ion-button>
+</ion-footer>

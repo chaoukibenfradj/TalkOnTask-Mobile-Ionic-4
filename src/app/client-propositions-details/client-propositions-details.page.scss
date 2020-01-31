@@ -1,0 +1,75 @@
+@import '../../theme/variables.scss';
+
+.list-dev-team {
+    overflow-y: auto;
+    white-space: nowrap;
+
+}
+
+.card-content {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.card-project-header {
+    padding-bottom: 0px;
+    padding-top: 10px;
+}
+
+.card-header {
+    padding-bottom: 0;
+}
+
+.title {
+    font-size: 15px;
+
+}
+
+h2 {
+    color: #000;
+    text-align: justify;
+}
+
+.to-do {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-task-buttom {
+    --padding-start: 0;
+    --padding-end: 0;
+}
+
+.empty-group-team {
+    font-weight: 700;
+    color: #a3a3a3;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+}
+
+.task-list {
+    max-height: 30vh;
+    overflow: auto;
+}
+
+.task-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.todo {
+    color: var(--ion-color-danger);
+}
+
+.doing {
+    color: var(--ion-color-warning);
+}
+
+.done {
+    color: var(--ion-color-success);
+}

@@ -29,12 +29,14 @@
       </ion-item-divider>
       <ion-item>
         <ion-label>Start Date</ion-label>
-        <ion-datetime displayFormat="MM DD YYYY" formControlName="start_date" placeholder="Select Date">
+        <ion-datetime [min]="(project)?project.estimated_start_date : ''" [max]="(project)?project.estimated_end_date : ''" displayFormat="DD MM YYYY"
+          formControlName="start_date" placeholder="Select Date">
         </ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>End Date</ion-label>
-        <ion-datetime displayFormat="MM DD YYYY" formControlName="end_date" placeholder="Select Date">
+        <ion-datetime [min]="(project)?project.estimated_start_date : ''" [max]="(project) ? project.estimated_end_date : ''" displayFormat="DD MM YYYY"
+          formControlName="end_date" placeholder="Select Date">
         </ion-datetime>
       </ion-item>
     </ion-item-group>

@@ -1,0 +1,48 @@
+@import "./../../theme/variables.scss";
+
+ion-input {
+    --placeholder-color: var(--ion-color-dark);
+}
+
+
+
+.divider-buttom{
+    --padding-end: 0 !important ;
+    --padding-start: 0 !important ;
+}
+
+.add-icon {
+    font-size: 10vw;
+}
+
+.empty-group-team {
+    font-weight: 700;
+    color: #a3a3a3;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 35vh;
+}
+
+ion-item-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.scrollable-list {
+    overflow: scroll !important;
+    height: 35vh !important;
+}
+
+ion-footer ion-button {
+    margin: 0 !important;
+  }
+
+  
+.file-pick {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+}
