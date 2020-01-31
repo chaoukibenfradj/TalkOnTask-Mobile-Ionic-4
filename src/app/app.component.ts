@@ -46,7 +46,15 @@ export class AppComponent implements AfterViewInit {
       title: 'Meetings',
       url: '/list-meetings',
       icon: 'people'
+    },
+
+
+    {
+      title: 'Settings',
+      url: '/settings',
+      icon: 'settings'
     }
+
 
 
   ];

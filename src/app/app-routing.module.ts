@@ -48,6 +48,13 @@ const routes: Routes = [
   {
     path: 'meeting-see/:id', loadChildren: './meeting-see/meeting-see.module#MeetingSeePageModule'
   },
+
+
+  {
+    path: 'settings',
+    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
+  },
+
   {
     path: '**',
     redirectTo: '/login',

@@ -1,13 +1,6 @@
 <ion-header>
     <ion-toolbar>
-        <ion-buttons slot='end'>
-            <ion-button icon-only (click)="updateToggle()" *ngIf="!isUpdating">
-                <ion-icon name="create" color="primary"></ion-icon>
-            </ion-button>
-            <ion-button icon-only (click)="updateToggle()" *ngIf="isUpdating">
-                <ion-icon name="checkmark-circle-outline" color="primary"></ion-icon>
-            </ion-button>
-        </ion-buttons>
+        
         <ion-buttons slot="start">
             <ion-menu-button>
             </ion-menu-button>
@@ -42,6 +35,6 @@
                 <p>{{currentUser.address}}</p>
             </ion-item>
         </ion-list>
-        <h2>Projects</h2>
+       
     </div>
 </ion-content>
