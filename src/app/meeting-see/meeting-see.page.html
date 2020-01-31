@@ -25,7 +25,7 @@
         <h2>{{(currentmeeting) ? (currentmeeting.duration + "hour(s)" ) : 'Please wait ...' }}</h2>
       
         <ion-card-subtitle color="primary" class="title"> Project :</ion-card-subtitle>
-        <h2 (click)=gotoProjectDetails(currentmeeting.selectedProject)>{{(currentmeeting) ? (currentmeeting.selectedProject._id) : 'Please wait ...' }}</h2>
+        <h2 (click)=gotoProjectDetails(currentmeeting.selectedProject)>{{(currentmeeting) ? (currentmeeting.selectedProject.title) : 'Please wait ...' }}</h2>
 
 
       </ion-card-content>
