@@ -1,11 +1,30 @@
 <ion-header>
-  <ion-toolbar>
-
-    <ion-title>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    
+      <ion-title>Home</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-refresher slot="fixed">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+        refreshingText="Refreshing..."></ion-refresher-content>
+    </ion-refresher>
+    <ion-card class="welcome-card">
+      <img src="/assets/imgs/project.png" alt="" />
+      <ion-card-header class="card-header">
+        <ion-card-title style="text-align: center; font-size: 25px;" > 
+            Welcome 
+          <h3>  {{ currentUser.firstName + '  ' + currentUser.lastName}}</h3>
+         </ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="card-content">
       
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-
-</ion-content>
+      </ion-card-content>
+    </ion-card>
+   
+  </ion-content>
+  
