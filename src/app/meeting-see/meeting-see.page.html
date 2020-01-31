@@ -1,0 +1,62 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot='start'>
+            <ion-back-button></ion-back-button>
+          </ion-buttons>
+      <ion-title>Meeting Details</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-card class="welcome-card">
+      <img src="/assets/imgs/meeting.png" alt="" />
+      <ion-card-header class="card-project-header">
+        <ion-card-title>{{(currentmeeting) ? (currentmeeting.subject | capitalize) : 'Please wait ...' }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+  
+        <ion-card-subtitle color="primary" class="title">Description :</ion-card-subtitle>
+        <h2>{{(currentmeeting) ? (currentmeeting.description) : 'Please wait ...' }}</h2>
+  
+        <ion-card-subtitle color="primary" class="title"> Date :</ion-card-subtitle>
+        <h2>{{(currentmeeting) ? (currentmeeting.date | date:' dd / MM / yyyy / HH:mm')  : 'Please wait ...' }}</h2>
+        
+        <ion-card-subtitle color="primary" class="title"> Duration :</ion-card-subtitle>
+        <h2>{{(currentmeeting) ? (currentmeeting.duration + "hour(s)" ) : 'Please wait ...' }}</h2>
+      
+        <ion-card-subtitle color="primary" class="title"> Project :</ion-card-subtitle>
+        <h2 (click)=gotoProjectDetails(currentmeeting.selectedProject)>{{(currentmeeting) ? (currentmeeting.selectedProject._id) : 'Please wait ...' }}</h2>
+
+
+      </ion-card-content>
+    </ion-card>
+  
+  
+    <ion-card>
+      <ion-card-header class="card-header">
+        <ion-card-subtitle color="primary" class="title">Project Manager</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="list-dev-team card-content" *ngIf="currentmeeting">
+        <ion-chip>
+          <ion-avatar>
+            <img src="assets/imgs/girl-avatar.png" />
+          </ion-avatar>
+          <ion-label>
+            {{(currentmeeting)?(currentmeeting.chef.firstName+' '+currentmeeting.chef.lastName | capitalize) : 'Please wait ...'}}
+          </ion-label>
+        </ion-chip>
+      </ion-card-content>
+      <div class="empty-group-team" *ngIf="!currentmeeting || !currentmeeting.chef">
+        Please wait ...
+      </div>
+    </ion-card>
+  
+  
+    
+  
+    
+  
+    
+  
+  
+  </ion-content>

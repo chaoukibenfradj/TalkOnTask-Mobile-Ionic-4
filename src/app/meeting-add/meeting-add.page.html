@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot='start'>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Meeting</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="addForm">
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>Informations</ion-label>
+      </ion-item-divider>
+      
+      <ion-item lines="full">
+        <ion-input autocorrect="on" formControlName="subject" autofocus="on" clearInput="true" clearOnEdit="true"
+          color="dark" inputmode="text" placeholder="Subject of the meeting" required="true">
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-textarea autocorrect="on" formControlName="description" autofocus="on" clearInput="true" clearOnEdit="true"
+          color="dark" inputmode="text" formControlName="description" rows="6" cols="20"
+          placeholder="Description of the meeting...">
+        </ion-textarea>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label> Date and time </ion-label>
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-datetime displayFormat="MM DD YYYY HH:mm" formControlName="date" placeholder="Select date and hour">
+        </ion-datetime>
+      </ion-item>
+
+
+      <ion-item-divider>
+        <ion-label> Duration </ion-label>
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-input autocorrect="on" autofocus="on" clearInput="true" clearOnEdit="true"
+        color="dark" inputmode="text"  required="true"  formControlName="duration" placeholder="How long will it last?">
+        </ion-input>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-group>
+    <ion-list >
+      <ion-item>
+        <ion-label>Project</ion-label>
+        <ion-select placeholder="Select One" formControlName="selectedProject" >
+          <ion-select-option  *ngFor="let project of listProjects" value="{{project._id}}">{{project.title | capitalize}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </ion-item-group>
+   
+  </form>
+</ion-content>
+<ion-footer>
+  <ion-button type="submit" expand="full" [disabled]="addForm.invalid " fill="solid"
+    color="primary" (click)="saveMeeting()">Add Meeting
+  </ion-button>
+</ion-footer>

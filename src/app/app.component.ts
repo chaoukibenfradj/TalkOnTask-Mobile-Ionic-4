@@ -40,7 +40,15 @@ export class AppComponent implements AfterViewInit {
       title: 'Chat',
       url: '/chat-friends-list',
       icon: 'chatboxes'
+    },
+
+    {
+      title: 'Meetings',
+      url: '/list-meetings',
+      icon: 'people'
     }
+
+
   ];
   currentUser: User;
   constructor(

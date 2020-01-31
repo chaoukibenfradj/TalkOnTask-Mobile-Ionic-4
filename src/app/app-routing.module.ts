@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './utils/guards/auth-guard.service';
@@ -37,11 +38,23 @@ const routes: Routes = [
   { path: 'task-details/:idTask', loadChildren: './task-details/task-details.module#TaskDetailsPageModule' },
   { path: 'task-update/:idTask', loadChildren: './task-update/task-update.module#TaskUpdatePageModule' },
   { path: 'task-request-list', loadChildren: './task-request-list/task-request-list.module#TaskRequestListPageModule' },
+
+  {
+    path: 'list-meetings', loadChildren: './list-meetings/list-meetings.module#ListMeetingsPageModule'
+  },
+  {
+    path: 'meeting-add', loadChildren: './meeting-add/meeting-add.module#MeetingAddPageModule'
+  },
+  {
+    path: 'meeting-see/:id', loadChildren: './meeting-see/meeting-see.module#MeetingSeePageModule'
+  },
   {
     path: '**',
     redirectTo: '/login',
     pathMatch: 'full'
-  }
+  },
+
+
 ];
 
 

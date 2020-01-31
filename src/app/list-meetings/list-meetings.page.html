@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-buttons slot="end" *ngIf="(currentUser && currentUser.userRole==='pm') ? true : false">
+        <ion-button routerLink="/meeting-add">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Meetings</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+        refreshingText="Refreshing..."></ion-refresher-content>
+    </ion-refresher>
+    <ion-card class="welcome-card" *ngFor="let meeting of listMeetings" (click)=gotoMeetingDetails(meeting._id)>
+      <img src="/assets/imgs/meeting.png" alt="" />
+      <ion-card-header class="card-header">
+        <ion-card-title>{{meeting.subject | capitalize}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="card-content">
+        <p>{{meeting.description | shorten:'30' | capitalize}}</p>
+      </ion-card-content>
+    </ion-card>
+    <div class="center-div" *ngIf="listMeetings.length==0">
+      <ion-icon name="clipboard" color="grey" class="error-icon"></ion-icon>
+      No Meetings Yet !
+    </div>
+  </ion-content>
+  
