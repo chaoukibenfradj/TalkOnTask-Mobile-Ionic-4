@@ -1,5 +1,5 @@
 // export const API_URL = 'http://localhost:3000/';
-export const API_URL = 'http://localhost:3000/';
+export const API_URL = 'http://192.168.1.57:3000/';
 // export const API_URL = 'https://talkontask.herokuapp.com/';
 
 // USERS
@@ -8,7 +8,6 @@ export const GET_ALL_USERS = API_URL + 'user/all';
 export const LOGIN_USER = API_URL + 'user/login';
 export const GET_ALL_USER_BY_TYPE = API_URL + 'user/type/';
 export const GET_USER_BY_ID = API_URL + 'user/id/';
-export const UPDATE_FCM_TOKEN = API_URL + 'user/token/';
 
 
 
@@ -47,3 +46,8 @@ export const GET_ALL_MEETINGS_BY_DEV_ID = API_URL + 'meeting/devmet/';
 export const GET_ALL_MEETINGS = API_URL + 'meeting/allM';
 export const SEE_MEETING = API_URL + 'meeting/m/';
 export const GET_MEETINGS_MANAGER = API_URL + 'meeting/chef/';
+export const UPDATE_FCM_TOKEN = API_URL + 'user/token/';
+export const ADD_PROJECT_PROPOSITION = API_URL + 'project/proposition' ;
+export const GET_PROJECT_PROPOSITION_BY_CLIENT_ID = API_URL + 'project/proposition/client/' ;
+export const GET_PROJECT_PROPOSITION_ID = API_URL + 'project/proposition/' ;
+export const PROJECT_STATS = API_URL + 'project/stats/' ;

@@ -16,13 +16,19 @@ import { API_URL } from './utils/API_URLS';
 import { IonicGestureConfig } from './utils/IonicGestureConfig';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { NotificationService } from './services/notification.service';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { DocumentViewer } from '@ionic-native/document-viewer/ngx';
+
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 
 
 const config: SocketIoConfig = { url: API_URL, options: {} };
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   entryComponents: [],
   imports: [
@@ -38,6 +44,11 @@ const config: SocketIoConfig = { url: API_URL, options: {} };
   ],
   providers: [
     StatusBar,
+    FilePath,
+    FileTransfer,
+    File,
+    DocumentViewer,
+    FileChooser,
     FCM,
     AuthGuardService,
     { provide: HAMMER_GESTURE_CONFIG, useClass: IonicGestureConfig },

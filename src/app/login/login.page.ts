@@ -43,6 +43,7 @@ export class LoginPage implements OnInit, AfterViewInit {
   }
   ionViewDidEnter() {
     console.log('Login');
+    this.menuController.enable(false);
     if (this.authService.isTokenValid()) {
       this.userService.getUserById(this.authService.getUser()._id)
         .subscribe((data => {
@@ -52,7 +53,11 @@ export class LoginPage implements OnInit, AfterViewInit {
           this.uiService.stopLoading();
           this.menuController.enable(true);
           this.getNotificationToken();
-          this.router.navigate(['/list-projects']);
+          if (this.currentUser.userRole === 'client') {
+            this.router.navigate(['/client-projects']);
+          } else {
+            this.router.navigate(['/list-projects']);
+          }
         }), err => {
           console.log(err);
           this.uiService.stopLoading();
@@ -66,8 +71,6 @@ export class LoginPage implements OnInit, AfterViewInit {
   ngAfterViewInit() {
 
   }
-
-
 
   showPasswordToggle() {
     this.showPassword = !this.showPassword;
@@ -122,7 +125,11 @@ export class LoginPage implements OnInit, AfterViewInit {
       this.currentUser = decoded.user;
       this.publishCurrentUser();
       this.getNotificationToken();
-      this.router.navigate(['/list-projects']);
+      if (this.currentUser.userRole === 'client') {
+        this.router.navigate(['/client-projects']);
+      } else {
+        this.router.navigate(['/list-projects']);
+      }
       this.uiService.stopLoading();
     }, err => {
       this.uiService.stopLoading();

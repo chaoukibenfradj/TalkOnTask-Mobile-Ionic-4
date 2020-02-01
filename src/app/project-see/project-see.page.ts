@@ -26,29 +26,7 @@ export class ProjectSeePage implements OnInit, AfterViewInit {
   actionSheetShowed = false;
 
 
-  testArray = [
-    {
-      'name': 'To Do',
-      'value': 10,
-      'extra': {
-        'code': 'de'
-      }
-    },
-    {
-      'name': 'Doing',
-      'value': 2,
-      'extra': {
-        'code': 'us'
-      }
-    },
-    {
-      'name': 'Done',
-      'value': 3,
-      'extra': {
-        'code': 'fr'
-      }
-    }
-  ];
+  testArray = [];
 
   view: any;
   colorScheme = {
@@ -83,8 +61,34 @@ export class ProjectSeePage implements OnInit, AfterViewInit {
       this.seeProject();
       this.getAllTasksByProjectId();
       this.currentuser = this.authService.getUser();
+      this.getProjectStats();
     });
   }
+
+  getProjectStats() {
+    this.projectService.getProjectStats(this.projectId)
+      .subscribe(data => {
+        this.testArray.push({
+          'name': 'To Do',
+          'value': data.todo,
+
+        },
+          {
+            'name': 'Doing',
+            'value': data.doing,
+
+          },
+          {
+            'name': 'Done',
+            'value': data.done,
+
+          }
+        );
+      }, err => {
+        console.log(err);
+      });
+  }
+
   seeProject() {
     this.uiService.startLoading();
     this.projectService.seeProject(this.projectId)

@@ -14,7 +14,6 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
-
     path: 'chat-list-messages/:id',
     loadChildren: './chat-list-messages/chat-list-messages.module#ChatListMessagesPageModule'
   },
@@ -48,20 +47,28 @@ const routes: Routes = [
   {
     path: 'meeting-see/:id', loadChildren: './meeting-see/meeting-see.module#MeetingSeePageModule'
   },
-
-
   {
     path: 'settings',
-    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
+    loadChildren: () => import('./settings/settings.module').then(m => m.SettingsPageModule)
   },
-
+  {
+    path: 'client-projects',
+    loadChildren: () => import('./client-projects/client-projects.module').then(m => m.ClientProjectsPageModule)
+  },
+  {
+    path: 'add-client-projects',
+    loadChildren: () => import('./add-client-projects/add-client-projects.module').then(m => m.AddClientProjectsPageModule)
+  },
+  {
+    path: 'client-propositions-details/:id',
+    loadChildren: () => import('./client-propositions-details/client-propositions-details.module')
+      .then(m => m.ClientPropositionsDetailsPageModule)
+  },
   {
     path: '**',
     redirectTo: '/login',
     pathMatch: 'full'
-  },
-
-
+  }
 ];
 
 

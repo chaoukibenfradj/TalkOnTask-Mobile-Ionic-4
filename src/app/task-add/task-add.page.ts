@@ -9,6 +9,8 @@ import { TaskAddDevComponent } from '../shared/task-add-dev/task-add-dev.compone
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { UIService } from '../services/ui.service';
+import { ProjectService } from '../services/project.service';
+import { Project } from '../models/project.model';
 
 @Component({
   selector: 'app-task-add',
@@ -27,6 +29,7 @@ export class TaskAddPage implements OnInit {
   listDevTeam = [];
   selectedProject: string;
   choosedDev: User;
+  project: Project;
   currentUser: User;
 
   constructor(
@@ -36,6 +39,7 @@ export class TaskAddPage implements OnInit {
     private taskService: TaskService,
     private location: Location,
     private uiService: UIService,
+    private projectService: ProjectService,
     private activatedRoute: ActivatedRoute
   ) { }
 
@@ -43,6 +47,13 @@ export class TaskAddPage implements OnInit {
     this.currentUser = this.authService.getUser();
     this.activatedRoute.paramMap.subscribe(data => {
       this.selectedProject = data.get('idProject');
+      this.projectService.seeProject(this.selectedProject)
+        .subscribe(data1 => {
+          console.log(data1);
+          this.project = data1.data;
+        }, err => {
+          console.log(err);
+        });
     });
   }
 
